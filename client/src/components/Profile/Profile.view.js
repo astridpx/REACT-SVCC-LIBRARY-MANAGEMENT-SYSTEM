@@ -60,6 +60,7 @@ export const ProfileView = ({ adminInfoFunction }) => {
       });
       setAdminInfo(admin);
     });
+
     return () => {
       adminCleanUp = false;
     };
