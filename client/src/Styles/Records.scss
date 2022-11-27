@@ -194,7 +194,51 @@
     }
   }
 }
-// @media only screen and (min-height: 800px) {
+/* SWEET ALERT CUSTPM STYLE */
+.swal2-popup {
+  background-color: $main-bg-clr;
+  color: $main-txt-clr;
+}
+.swal2-icon {
+  border-color: #fff;
+  color: #fff;
+}
+.swal2-icon.swal2-warning {
+  background-color: $delete-clr;
+  color: #fff;
+  border: 1px solid;
+  border-color: #fff;
+}
+.swal2-title {
+  font-size: unset;
+  color: $main-txt-clr;
+}
+.swal2-input {
+  outline: none;
+  border: 1px solid #fff;
+  // border-bottom: 1px solid #fff;
+  &:focus {
+    outline: none;
+    border: 1px solid #fff;
+    box-shadow: none;
+    // border-bottom: 1px solid #fff;
+  }
+}
+.swal2-styled.swal2-confirm {
+  background-color: #2b77c0;
+}
+.swal2-styled.swal2-cancel {
+  background-color: #d33;
+}
+.swal2-popup.swal2-toast {
+  background-color: $main-bg-clr;
+  color: $main-txt-clr;
+
+  // .swal2-actions {
+  //   justify-content: center;
+  // }
+  // @media only screen and (min-height: 800px) {
+}
 //   .record-container {
 //     .table-wrapper {
 //       .table-section {
