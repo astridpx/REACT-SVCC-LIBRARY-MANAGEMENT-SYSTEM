@@ -65,5 +65,5 @@ export const ProfileView = ({ adminInfoFunction }) => {
     };
   }, []);
 
-  return <>{adminInfo};</>;
+  return <>{adminInfo}</>;
 };
