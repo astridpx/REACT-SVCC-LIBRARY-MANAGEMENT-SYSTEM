@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   );
 });
 
-// DELETE
+// DELETE RECORD
 router.delete("/delete/:id", async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -43,6 +43,19 @@ router.delete("/delete/:id", async (req, res) => {
       res.status(409).send({ message: "Email Doesn't Exist." });
     }
   });
+});
+
+// RETURN DELETE
+router.delete("/return/:id", async (req, res) => {
+  db.query(
+    "DELETE FROM issue_book WHERE issue_book.ISSUE_ID = ?",
+    [req.params.id],
+    (err, result) => {
+      if (result) {
+        res.status(201).send({ message: "RECORD DELETED SUCCESSFULLY." });
+      }
+    }
+  );
 });
 
 module.exports = router;
