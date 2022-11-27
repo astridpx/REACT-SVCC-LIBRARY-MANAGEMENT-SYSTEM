@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const db = require("../config/config");
 const { authStudent } = require("../middlewares");
+const bcrypt = require("bcrypt");
 
 // authStudent(["admin", "student"]),
 // GET ISSUE RECORDS
@@ -16,15 +17,32 @@ router.get("/", async (req, res) => {
 
 // DELETE
 router.delete("/delete/:id", async (req, res) => {
-  await db.query(
-    "DELETE FROM issue_book WHERE issue_book.ISSUE_ID = ?",
-    [req.params.id],
-    (err, result) => {
-      if (result) {
-        res.status(201).send({ message: "BOOK DELETED SUCCESSFULLY." });
-      }
+  const email = req.body.email;
+  const password = req.body.password;
+
+  db.query("SELECT * FROM admin WHERE email=?", [email], (err, result) => {
+    if (result.length > 0) {
+      bcrypt.compare(password, result[0].password).then((match) => {
+        if (!match) {
+          res.status(409).send({ message: "Invalid Password." });
+        } else {
+          db.query(
+            "DELETE FROM issue_book WHERE issue_book.ISSUE_ID = ?",
+            [req.params.id],
+            (err, result) => {
+              if (result) {
+                res
+                  .status(201)
+                  .send({ message: "RECORD DELETED SUCCESSFULLY." });
+              }
+            }
+          );
+        }
+      });
+    } else {
+      res.status(409).send({ message: "Email Doesn't Exist." });
     }
-  );
+  });
 });
 
 module.exports = router;

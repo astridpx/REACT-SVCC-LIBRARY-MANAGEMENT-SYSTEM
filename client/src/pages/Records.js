@@ -8,34 +8,26 @@ import Swal from "sweetalert2";
 
 const Records = () => {
   const [recordList, setRecordList] = useState("");
-  // const [confirmPassword, setConfirmPasssword] = useState("");
+  const [email, setEmail] = useState("john@gmail.com");
+  const [issueId, setIssueId] = useState("");
+
   function isDateBeforeToday(date) {
     const checkDate = new Date(date);
     var now = new Date();
     return checkDate < now;
   }
 
-  const handleDeleteRecord = async () => {
-    await Swal.fire({
-      title: "Enter Your Password to Confirm Delete",
-      input: "text",
-      icon: "warning",
-      showCancelButton: true,
-      // inputLabel: "Your password",
-      inputPlaceholder: "Enter your password ",
-    }).then((confirmPassword) => {
-      if (confirmPassword.isConfirmed) {
-        if (confirmPassword.value === "password") {
-          Swal.fire(`You: ${confirmPassword.value}`);
-        } else {
-          Swal.fire({
-            text: "Invalid Password",
-            // confirmButtonColor: "#999999",
-          });
-        }
-      }
-    });
-  };
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   useEffect(() => {
     let recordCleanup = true;
@@ -58,8 +50,14 @@ const Records = () => {
             <td>{new Date(props.issue_date).toDateString()}</td>
             <td>{new Date(props.return_date).toDateString()}</td>
             <td className="action">
-              <button id="edit">Edit</button>
-              <button id="delete" onClick={handleDeleteRecord}>
+              {/* <button id="edit">Edit</button> */}
+              <button
+                id="delete"
+                onClick={() => {
+                  handleDeleteRecord();
+                  setIssueId(props.ISSUE_ID);
+                }}
+              >
                 Delete
               </button>
             </td>
@@ -72,6 +70,44 @@ const Records = () => {
       recordCleanup = false;
     };
   }, []);
+
+  const handleDeleteRecord = async () => {
+    await Swal.fire({
+      title: "Enter Your Password to Confirm Delete",
+      input: "password",
+      icon: "warning",
+      showCancelButton: true,
+      inputPlaceholder: "Enter your password ",
+    }).then((confirmPassword) => {
+      if (confirmPassword.isConfirmed) {
+        const configData = {
+          method: "delete",
+          url: `http://localhost:5000/allRecords/delete/${issueId}`,
+          data: {
+            email,
+            password: confirmPassword.value,
+          },
+        };
+
+        axios(configData)
+          .then((result) => {
+            Toast.fire({
+              icon: "success",
+              title: result.data.message,
+            }).then(() => window.location.reload(false));
+          })
+          .catch(async (error) => {
+            console.log(error);
+            await Toast.fire({
+              icon: "error",
+              showCancelButton: false,
+              title: error.response.data.message,
+            });
+          });
+      }
+    });
+  };
+
   return (
     <>
       <div className="record-container">
@@ -128,13 +164,7 @@ const Records = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {recordList.length > 0 ? (
-                    recordList
-                  ) : (
-                    <tr>
-                      <td>NO RESULT</td>
-                    </tr>
-                  )}
+                  {recordList.length > 0 ? recordList : <h4>No Result</h4>}
                 </tbody>
               </table>
             </div>
