@@ -1,0 +1,168 @@
+@import "./variable";
+
+.books-container {
+  height: $container-height;
+  width: 100%;
+  @include flexCenter(space-between);
+  align-items: unset;
+}
+
+// btn float
+#btn-add {
+  position: absolute;
+  height: 3rem;
+  width: 3rem;
+  background-color: #fff;
+  // color: #000;
+  border: 1px solid #34b970;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 800;
+  @include flexCenter(center);
+  right: 7%;
+  top: 500px;
+  z-index: 1;
+  cursor: pointer;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+.book-section {
+  width: 100%;
+  min-width: $min-width;
+  height: 100%;
+
+  section {
+    height: 100%;
+    width: 98%;
+    margin: 0 auto;
+    overflow-y: hidden;
+    // border: 1px solid black;
+    background-color: #ffffff9f;
+  }
+  header {
+    height: $table-head-height;
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    background-color: $tb-head-clr;
+    padding-top: 1rem;
+
+    h2 {
+      color: $txt-clr2;
+      text-align: center;
+      // margin-bottom: 1rem;
+    }
+    .search-input {
+      display: flex;
+      align-items: center;
+      input {
+        margin-right: 2px;
+        padding-left: 5px;
+        font-weight: 400;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid $main-bg-clr;
+        height: $main-height;
+        width: 11rem;
+        cursor: pointer;
+        outline: 0;
+      }
+      .btn-search {
+        height: $main-height;
+        padding: 0 1rem;
+        border: 1px solid $main-bg-clr;
+        border-radius: 5px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+    }
+  } // end of header
+
+  // table
+  .table-section {
+    height: $table-wrapper-height;
+    width: 100%;
+    overflow: auto;
+
+    thead th {
+      position: sticky;
+      top: 0;
+      background-color: $main-bg-clr;
+      color: $main-txt-clr;
+      padding: 5px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    tr {
+      border-left: 1px solid #000;
+      border-right: 1px solid #000;
+    }
+    td {
+      // border-bottom: 1px solid #000;
+      text-align: center;
+      font-weight: 400;
+      font-size: 14px;
+      padding: 7px 9px;
+      word-wrap: break-word;
+      max-height: 4rem;
+      // height: 4rem;
+      min-width: $td-width;
+    }
+    th {
+      border-top: transparent;
+    }
+    tr:nth-child(odd) {
+      background-color: $tr-book-clr;
+    }
+    tr:nth-child(even) {
+      background-color: #fff;
+    }
+
+    .author-box {
+      max-width: 12rem;
+    }
+
+    .action {
+      #edit,
+      #delete {
+        padding: 5px 8px;
+        border-radius: 5px;
+        font-weight: 500;
+        cursor: pointer;
+        color: $btn-txt-clr;
+        margin: 2px;
+      }
+      #edit {
+        width: 54px;
+        margin-bottom: 2px;
+        background-color: $edit-clr;
+        border: 1px solid $edit-clr2;
+      }
+      #delete {
+        background-color: $delete-clr;
+        border: 1px solid $delete-clr2;
+      }
+    }
+  }
+}
+// @media screen and(max-height:600px) {
+//   .book-section {
+//     height: 33rem;
+//   }
+// }
+
+@media screen and (max-width: $media-screen) {
+  .book-section {
+    min-width: $min-width;
+    section {
+      width: 100%;
+      // margin-top: 1rem;
+    }
+    header {
+      h2 {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}

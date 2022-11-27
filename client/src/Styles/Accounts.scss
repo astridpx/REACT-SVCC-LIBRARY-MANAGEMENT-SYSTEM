@@ -1,0 +1,201 @@
+@import "./variable";
+
+.account-container {
+  width: 100%;
+  height: 100%;
+  @include flexCenter(space-between);
+  align-items: unset;
+  background-color: aliceblue;
+}
+
+.acc-table-container {
+  width: 100%;
+  min-width: $min-width;
+  height: 36rem;
+}
+.account-wrapper {
+  height: 100%;
+  width: 98%;
+  margin: 0 auto;
+  header {
+    height: 7rem;
+    width: 100%;
+    background-color: $head-clr;
+    padding-top: 1rem;
+    h2 {
+      text-align: center;
+    }
+    .nav-wrapper {
+      // height: 50%;
+      width: 100%;
+      @include flexCenter(space-between);
+      nav {
+        flex: 1;
+        justify-content: unset;
+        a {
+          font-weight: 600;
+          color: #1f1b1b;
+          text-decoration: none;
+          padding: 0 1rem;
+        }
+        #active::before {
+          content: "";
+          position: absolute;
+          height: 2px;
+          background-color: #000;
+          width: 0;
+          animation: animeLine 0.3s forwards;
+          @keyframes animeLine {
+            from {
+            }
+            to {
+              width: 3rem;
+            }
+          }
+        }
+      }
+      .search-box {
+        flex: 1;
+        @include flexCenter(end);
+        padding-right: 1rem;
+        input {
+          border: 1px solid $main-bg-clr;
+          outline: 0;
+          height: $main-height;
+          padding-left: 5px;
+          cursor: pointer;
+          margin-right: 2px;
+        }
+        button {
+          height: $main-height;
+          padding: 0 1rem;
+          border: 1px solid $main-bg-clr;
+          border-radius: 5px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .table-wrapper {
+    height: 29rem;
+    background-color: #ffffff;
+    width: 100%;
+    overflow-y: auto;
+    // Design for account List
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    thead th {
+      position: sticky;
+      top: 0;
+      background-color: #fff;
+      //   background-color: $main-bg-clr;
+      //   color: $main-txt-clr;
+      padding: 7px 5px;
+    }
+    thead th td {
+      border: 1px solid #000;
+    }
+    tr {
+      border-left: 1px solid #000;
+      border-right: 1px solid #000;
+    }
+    td {
+      // border: 1px solid black;
+      text-align: center;
+      font-weight: 400;
+      font-size: 14px;
+      padding: 7px 9px;
+      word-wrap: break-word;
+      max-height: 4rem;
+      // height: 4rem;
+      min-width: $td-width;
+    }
+    tr {
+      border: 1px solid #000;
+    }
+    tr:nth-child(odd) {
+      background-color: #eeeeee;
+    }
+
+    #edit,
+    #accept,
+    #reject,
+    #delete {
+      padding: 3px 5px;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      color: $btn-txt-clr;
+      margin: 1px;
+    }
+    #edit {
+      width: 54px;
+      margin-bottom: 2px;
+      background-color: $edit-clr;
+      border: 1px solid $edit-clr2;
+    }
+    #delete,
+    #reject {
+      background-color: $delete-clr;
+      border: 1px solid $delete-clr2;
+    }
+
+    // btn for applicants
+    #accept {
+      width: 60px;
+      margin-bottom: 2px;
+      background-color: $edit-clr;
+      border: 1px solid $edit-clr2;
+    }
+    .namebx {
+      min-width: 12rem;
+    }
+    .name-box {
+      min-width: 12rem;
+      @include flexCenter(unset);
+
+      img {
+        height: 2.2rem;
+        width: 2.2rem;
+        border-radius: 2rem;
+        margin-right: 1rem;
+      }
+    }
+  } // table wrapper
+} // main
+
+@media only screen and (max-height: 650px) {
+  .acc-table-container {
+    height: 30rem;
+  }
+}
+
+@media only screen and (max-width: $media-screen) {
+  .account-wrapper {
+    width: 100%;
+    header {
+      height: 9rem;
+      .nav-wrapper {
+        display: block;
+        nav {
+          a {
+            padding-left: 0;
+          }
+        }
+        .search-box {
+          justify-content: start;
+          // flex-direction: row-reverse;
+          padding-left: 1rem;
+          margin-bottom: 10px;
+        }
+      }
+    }
+    .table-wrapper {
+      height: 27rem;
+    }
+  }
+}

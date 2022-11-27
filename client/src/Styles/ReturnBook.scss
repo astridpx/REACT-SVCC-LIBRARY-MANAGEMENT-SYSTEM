@@ -1,0 +1,223 @@
+@import "../Styles/variable";
+
+.return-container {
+  width: 100%;
+  height: $container-height;
+  @include flexCenter(space-between);
+  align-items: unset;
+}
+
+.return-form-container {
+  height: 100%;
+  width: 100%;
+  background-image: url("../assets/svccBG.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin: 0 auto;
+  @include flexCenter(center);
+}
+
+.form-return-wrapper {
+  height: 100%;
+  width: 90%;
+  // padding: 0 1rem;
+  @include flexCenter(center);
+
+  form {
+    height: 90%;
+    width: 60%;
+    background-color: #f3f3f3;
+    @include flexCenter(unset);
+    flex-direction: column;
+    align-items: unset;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 10px 0 0 10px;
+
+    #btn-return {
+      padding: 7px;
+      width: 6em;
+      align-self: center;
+      text-align: center;
+      background-color: $main-bg-clr;
+      color: $main-txt-clr;
+      font-weight: 500;
+      font-size: 17px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+      &:active {
+        transform: scale(1.1);
+      }
+    }
+
+    .return-field {
+      height: 90%;
+      //   width: 90%;
+      @include flexCenter(unset);
+
+      label {
+        min-width: 8em;
+        font-size: 1.1em;
+        font-weight: 500;
+        color: $main-bg-clr;
+      }
+      input {
+        width: 17rem;
+        height: 2.5rem;
+        font-weight: 400;
+        font-size: 1rem;
+        padding: 0 10px;
+        border: 1px solid $main-bg-clr;
+        border-radius: 10px;
+        outline: none;
+      }
+    }
+  }
+  // qr ceode box
+  .qr-container {
+    height: 90%;
+    width: 30%;
+    padding: 1rem;
+    border-radius: 0 10px 10px 0;
+    overflow: hidden;
+    background-color: $main-txt-clr;
+
+    .upper-box {
+      height: 50%;
+      // width: 100%;
+      background-color: $main-bg-clr;
+      box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px,
+        rgba(0, 0, 0, 0.24) 0px 1px 2px;
+      border-radius: 10px;
+      padding: 1rem;
+      @include flexCenter(center);
+
+      .qr-wrapper {
+        height: 100%;
+        width: 100%;
+        // background-color: black;
+        background-color: white;
+        // color: $main-txt-clr;
+        text-align: center;
+        @include flexCenter(center);
+        border-radius: 10px;
+        position: relative;
+
+        // OVERRIDE QR STYLE
+        section {
+          div {
+            position: unset !important;
+          }
+        }
+        .boxScanner {
+          height: 125px;
+          width: 125px;
+          background-color: aqua;
+          z-index: 4;
+          background: linear-gradient(to right, red 4px, transparent 4px) 0 0,
+            linear-gradient(to right, red 4px, transparent 4px) 0 100%,
+            linear-gradient(to left, red 4px, transparent 4px) 100% 0,
+            linear-gradient(to left, red 4px, transparent 4px) 100% 100%,
+            linear-gradient(to bottom, red 4px, transparent 4px) 0 0,
+            linear-gradient(to bottom, red 4px, transparent 4px) 100% 0,
+            linear-gradient(to top, red 4px, transparent 4px) 0 100%,
+            linear-gradient(to top, red 4px, transparent 4px) 100% 100%;
+          background-repeat: no-repeat;
+          background-size: 20px 20px;
+        }
+        #qrScan {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+    // bottom
+    .bottom-box {
+      padding: 1rem;
+      .radio-wrapper {
+        margin-bottom: 1rem;
+        @include flexCenter(space-around);
+        background-color: cadetblue;
+        input {
+          cursor: pointer;
+        }
+        label {
+          padding-left: 10px;
+        }
+      }
+      .btn-wrapper {
+        @include flexCenter(center);
+
+        button {
+          padding: 5px 15px;
+          font-size: 0.9em;
+          font-weight: 400;
+          margin: 0 5px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        #btn-scan {
+          border: 1px solid hsl(203, 85%, 60%);
+          background-color: hsl(203, 85%, 54%);
+          transition: transform 0.3s ease-out;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+        #btn-off {
+          border: 1px solid $delete-clr2;
+          background-color: $delete-clr;
+          color: $main-txt-clr;
+          transition: transform 0.3s ease-out;
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: $media-screen) {
+  .return-container {
+    height: max-content;
+  }
+  .form-return-wrapper {
+    width: 100%;
+    height: max-content;
+    flex-direction: column-reverse;
+
+    form {
+      border-radius: 10px;
+      width: 98%;
+      margin-bottom: 1em;
+
+      #btn-return {
+        margin-top: 1rem;
+      }
+      .return-field {
+        flex-direction: column;
+        align-items: unset;
+        padding-left: 1em;
+        input {
+          width: 90%;
+        }
+      }
+    }
+
+    // qecode
+    .qr-container {
+      height: 20em;
+      width: 20rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+
+      .upper-box {
+        height: 70%;
+      }
+    }
+  }
+}

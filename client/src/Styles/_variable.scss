@@ -1,0 +1,30 @@
+$main-txt-clr: #e7e4e4;
+$txt-clr: #c2bcbc;
+$txt-clr1: #868686;
+$txt-clr2: #272525;
+$txt-clr3: #535353;
+$txt-clr4: #eeee;
+$head-clr: #ffd700;
+$main-bg-clr: #6b0f2c;
+$edit-clr: #059862;
+$edit-clr2: #037c50;
+$delete-clr: #ef3b4f;
+$delete-clr2: #ca3344;
+$btn-txt-clr: #dddddd;
+$main-height: 1.5rem;
+$container-height: 88vh;
+
+$table-fix-height: 36rem;
+$table-head-height: 7rem;
+$table-wrapper-height: 29rem;
+$min-width: 24rem;
+$td-width: 10rem;
+$tb-head-clr: #6eccaf;
+$tr-book-clr: #eee;
+$media-screen: 950px;
+
+@mixin flexCenter($justify) {
+  display: flex;
+  justify-content: $justify;
+  align-items: center;
+}

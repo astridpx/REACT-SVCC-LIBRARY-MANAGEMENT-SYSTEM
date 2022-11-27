@@ -1,0 +1,45 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+thead th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 7px 5px;
+}
+td {
+  text-align: center;
+  font-weight: 500;
+  padding: 5px;
+  word-wrap: break-word;
+  max-height: 4rem;
+  height: 4rem;
+  min-width: 9rem;
+}
+tr {
+  border: 1px solid #000;
+}
+tr:nth-child(odd) {
+  background-color: #e9e9e9;
+}
+#edit,
+#delete {
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-weight: 500;
+  cursor: pointer;
+  color: #ddd;
+  margin: 1px;
+}
+#edit {
+  width: 54px;
+  margin-bottom: 2px;
+  background-color: #059862;
+  border: 1px solid #037c50;
+}
+#delete {
+  background-color: #ef3b4f;
+  border: 1px solid #ca3344;
+} /*# sourceMappingURL=Account-List.css.map */

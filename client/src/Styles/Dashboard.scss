@@ -1,0 +1,123 @@
+@import "./variable";
+
+.dashboard-container {
+  height: 100%;
+  width: 100%;
+  @include flexCenter(space-between);
+  align-items: unset;
+  // background-color: cadetblue;
+}
+
+.dashboard-section {
+  width: 100%;
+  height: $container-height;
+  background-color: #cdf0ea;
+
+  .card-wrapper {
+    height: 14vh;
+    background-color: #f9f9f9;
+    // border-bottom: 1px solid black;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+    // background-color: #d16969;
+
+    // width: 100%;
+    display: grid;
+    padding: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 1rem;
+
+    .card {
+      @include flexCenter(space-between);
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
+      &:hover {
+        transform: translateY(-7px);
+      }
+      .card-icon {
+        width: 35%;
+        height: 100%;
+        @include flexCenter(center);
+      }
+      .icon-member {
+        background-color: #3ab0ff;
+      }
+      .icon-applicants {
+        background-color: #fed049;
+      }
+      .icon-books {
+        background-color: #68b984;
+      }
+      .icon-issued {
+        background-color: #ff0063;
+      }
+      .icons {
+        color: #fff7e0;
+        font-size: 6vh;
+      }
+      .card-title {
+        width: 70%;
+        padding: 0 1rem;
+        background-color: bisque;
+        p {
+          font-weight: 500;
+        }
+        h3 {
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  section {
+    height: 65vh;
+    width: 100%;
+    @include flexCenter(unset);
+    align-items: unset;
+
+    .chart-wrapper {
+      width: 65%;
+      // height: 100%;
+      padding: 1rem;
+      .chart-box {
+        height: 100%;
+        width: 100%;
+        // background-color: rgb(89, 27, 148);
+      }
+    }
+
+    .right-box {
+      // width: 30%;
+      height: 100%;
+
+      .clockBox {
+        height: 21vh;
+        margin-top: 1rem;
+        text-align: center;
+        overflow: hidden;
+        line-height: 12px;
+        color: $txt-clr4;
+        background-color: $main-bg-clr;
+
+        .date {
+          font-size: 1.8rem;
+          // font-weight: 500;
+        }
+        .time {
+          font-size: 1.4rem;
+          font-weight: 400;
+        }
+      }
+      .calendar {
+        .react-calendar {
+          background-color: #fefbf6;
+          color: #090910;
+        }
+        .react-calendar__tile--active {
+          color: white;
+        }
+      }
+    }
+  }
+}
