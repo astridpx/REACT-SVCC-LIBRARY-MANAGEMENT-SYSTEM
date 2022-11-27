@@ -5,6 +5,7 @@ import "../Styles/IssueBook.scss";
 import { FormatISBN } from "../helpers/isbn.format";
 import { FormatStudID } from "../helpers/studID.format";
 import axios from "axios";
+import Swal from "sweetalert2";
 // import Qr from "../assets/profile.png";
 import QRCode from "react-qr-code";
 
@@ -31,6 +32,19 @@ const IssueBook = () => {
     issueRef.current.focus();
   }, []);
 
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   // ISSUE BOOK API INTEGRATION
   const configData = {
     method: "post",
@@ -45,13 +59,23 @@ const IssueBook = () => {
       returnDate,
     },
   };
-  const HandleSubmit = () => {
-    // e.prevent.default();
+  const HandleSubmit = (e) => {
+    e.preventDefault();
     axios(configData)
       .then((result) => {
-        alert(result.data.message);
+        Toast.fire({
+          icon: "success",
+          title: result.data.message,
+        }).then(() => window.location.reload(false));
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        console.log(err);
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.message,
+        });
+        // .then(() => window.location.reload(false));
+      });
   };
   return (
     <>
@@ -60,7 +84,7 @@ const IssueBook = () => {
           <Sidebar issue="active" />
         </div>
         <div className="form-wrapper">
-          <form action="" onSubmit={HandleSubmit}>
+          <form action="" onSubmit={(e) => HandleSubmit(e)}>
             <div className="issue-field">
               <label htmlFor="isbn">ISBN</label>
               <input
@@ -68,6 +92,7 @@ const IssueBook = () => {
                 ref={issueRef}
                 id="isbn"
                 placeholder="Enter isbn"
+                required
                 autoComplete="off"
                 onChange={handleISBN}
                 value={isbn}
@@ -80,6 +105,7 @@ const IssueBook = () => {
                 type="text"
                 id="title"
                 placeholder="Enter title"
+                required
                 autoComplete="off"
                 value={title}
                 onChange={(e) => setTitle(e.target.value.toUpperCase())}
@@ -91,6 +117,7 @@ const IssueBook = () => {
                 type="text"
                 id="studID"
                 placeholder="Enter stud id"
+                required
                 autoComplete="off"
                 value={"AY" + studId}
                 onChange={(e) => handleStudId(e)}
@@ -102,6 +129,7 @@ const IssueBook = () => {
                 type="text"
                 id="name"
                 placeholder="Enter name"
+                required
                 autoComplete="off"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -113,6 +141,7 @@ const IssueBook = () => {
                 type="email"
                 id="email"
                 placeholder="Enter email"
+                required
                 autoComplete="off"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -132,6 +161,7 @@ const IssueBook = () => {
               <input
                 type="date"
                 id="dateReturn"
+                required
                 value={returnDate}
                 onChange={(e) => setReturnDate(e.target.value)}
               />

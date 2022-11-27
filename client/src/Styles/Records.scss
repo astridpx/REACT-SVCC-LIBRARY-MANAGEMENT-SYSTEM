@@ -121,9 +121,9 @@
       tr {
         border-left: 1px solid #000;
         border-right: 1px solid #000;
-        &:nth-child(even) {
-          background-color: #eeee;
-        }
+        // &:nth-child(even) {
+        //   background-color: #eeee;
+        // }
       }
 
       tbody .not-return {
@@ -157,6 +157,7 @@
         #edit,
         #delete {
           padding: 3px 5px;
+          border: 2px solid transparent;
           border-radius: 5px;
           font-weight: 500;
           cursor: pointer;

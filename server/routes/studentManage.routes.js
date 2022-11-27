@@ -7,13 +7,61 @@ const salt = 10;
 
 // GET ALL STUDENTS LIST
 router.get("/", async (req, res) => {
-  db.query("SELECT * FROM student_acc", (err, result) => {
+  db.query("SELECT * FROM student_acc WHERE role='student'", (err, result) => {
     if (err) {
       res.status(409).send({ message: "SOMETHING WENT WRONG " + err });
     } else {
       res.json(result);
     }
   });
+});
+
+// GET ALL APPLICANTS
+router.get("/applicants", async (req, res) => {
+  db.query(
+    "SELECT * FROM student_acc WHERE role='applicants'",
+    (err, result) => {
+      if (err) {
+        res.status(409).send({ message: "SOMETHING WENT WRONG " + err });
+      } else {
+        res.json(result);
+      }
+    }
+  );
+});
+
+// ACCOUNT APPLICANT ACCEPT
+router.put("/accept/:id", async (req, res) => {
+  db.query(
+    "SELECT * FROM student_acc WHERE STUD_ID=?",
+    [req.params.id],
+    (err, results) => {
+      db.query(
+        "UPDATE student_acc SET ? WHERE STUD_ID = ?",
+        [
+          {
+            name: results[0].name,
+            stud_no: results[0].stud_no,
+            course: results[0].course,
+            section: results[0].section,
+            email: results[0].email,
+            password: results[0].password,
+            role: "student",
+          },
+          req.params.id,
+        ],
+        (err, result) => {
+          if (err) {
+            res.status(409).send({ message: "SOMETHING WENT WRONG " + err });
+          } else {
+            res.status(200).send({
+              message: "USER ACCEPTED.",
+            });
+          }
+        }
+      );
+    }
+  );
 });
 
 // REGISTER

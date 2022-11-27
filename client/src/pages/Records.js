@@ -1,20 +1,41 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 // import "../Css/Records.css";
 import "../Styles/Records.scss";
 import axios from "axios";
-import DateTime from "../components/Clock";
+import Swal from "sweetalert2";
+// import DateTime from "../components/Clock";
 
 const Records = () => {
   const [recordList, setRecordList] = useState("");
-
+  // const [confirmPassword, setConfirmPasssword] = useState("");
   function isDateBeforeToday(date) {
     const checkDate = new Date(date);
     var now = new Date();
-
     return checkDate < now;
   }
+
+  const handleDeleteRecord = async () => {
+    await Swal.fire({
+      title: "Enter Your Password to Confirm Delete",
+      input: "text",
+      icon: "warning",
+      showCancelButton: true,
+      // inputLabel: "Your password",
+      inputPlaceholder: "Enter your password ",
+    }).then((confirmPassword) => {
+      if (confirmPassword.isConfirmed) {
+        if (confirmPassword.value === "password") {
+          Swal.fire(`You: ${confirmPassword.value}`);
+        } else {
+          Swal.fire({
+            text: "Invalid Password",
+            // confirmButtonColor: "#999999",
+          });
+        }
+      }
+    });
+  };
 
   useEffect(() => {
     let recordCleanup = true;
@@ -38,7 +59,9 @@ const Records = () => {
             <td>{new Date(props.return_date).toDateString()}</td>
             <td className="action">
               <button id="edit">Edit</button>
-              <button id="delete">Delete</button>
+              <button id="delete" onClick={handleDeleteRecord}>
+                Delete
+              </button>
             </td>
           </tr>
         );
@@ -105,7 +128,13 @@ const Records = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {recordList.length > 0 ? recordList : <h4>NO RESULT</h4>}
+                  {recordList.length > 0 ? (
+                    recordList
+                  ) : (
+                    <tr>
+                      <td>NO RESULT</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

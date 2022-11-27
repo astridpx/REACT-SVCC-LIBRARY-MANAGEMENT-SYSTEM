@@ -79,7 +79,7 @@ export const FormAdd = ({ hideForm }) => {
   return (
     <>
       <div className="form-container">
-        <form action="">
+        <form action="" onSubmit={(e) => HandleSubmit(e)}>
           <button
             id="btn-close"
             onClick={(e) => {
@@ -147,9 +147,7 @@ export const FormAdd = ({ hideForm }) => {
               onChange={(e) => setPublished(e.target.value)}
             />
           </div>
-          <button id="btn-save" onClick={(e) => HandleSubmit(e)}>
-            Save
-          </button>
+          <button id="btn-save">Save</button>
         </form>
       </div>
     </>

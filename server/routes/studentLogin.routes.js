@@ -18,7 +18,6 @@ router.post("/", async (req, res) => {
           if (!match) {
             res.status(409).send({ message: "PASSWORD IS INCORRECT." });
           } else {
-            console.log(result[0].role);
             if (result[0].role === "student") {
               const token = jwt.sign(
                 { id: result[0].id },

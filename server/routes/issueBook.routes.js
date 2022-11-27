@@ -3,11 +3,12 @@ const db = require("../config/config");
 
 // ISSUE BOOK
 router.post("/issue", async (req, res) => {
+  const today = new Date();
   const isbn = req.body.isbn;
   const title = req.body.title;
   const name = req.body.name;
   const email = req.body.email;
-  const issueDate = req.body.issueDate;
+  const issueDate = today;
   const returnDate = req.body.returnDate;
 
   db.query("SELECT * FROM booklist WHERE isbn=?", [isbn], (err, isbnResult) => {
@@ -48,7 +49,8 @@ router.post("/issue", async (req, res) => {
               }
             );
           } else {
-            res.status(409).send({ message: "PLS CONFIRM YOUR EMAIL." });
+            // res.status(409).send({ message: "PLS CONFIRM YOUR EMAIL." });
+            res.status(409).send({ message: "EMAIL NOT FOUND." });
           }
         }
       );
