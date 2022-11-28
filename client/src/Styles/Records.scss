@@ -41,7 +41,8 @@
         @include flexCenter(space-between);
 
         .search-input {
-          @include flexCenter(center);
+          @include flexCenter(unset);
+
           input {
             margin-right: 2px;
             margin-left: 10px;
