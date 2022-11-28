@@ -43,7 +43,7 @@ const Records = () => {
             }
           >
             <td>{props.isbn}</td>
-            <td>{props.title + props.ISSUE_ID}</td>
+            <td>{props.title}</td>
             <td>{props.stud_no}</td>
             <td className="name-box">{props.name}</td>
             <td className="email-box">{props.email}</td>
@@ -83,9 +83,7 @@ const Records = () => {
                             Toast.fire({
                               icon: "error",
                               showCancelButton: false,
-                              title:
-                                err.response.data.message ||
-                                "Password is Incorrect",
+                              title: err.response.data.message,
                             });
                           }
                         });
