@@ -46,17 +46,40 @@ router.delete("/delete/:id", async (req, res) => {
 });
 
 // RETURN DELETE
-router.delete("/return/:id", async (req, res) => {
+router.delete("/return", async (req, res) => {
   const isbn = req.body.isbn;
-  db.query(
-    "DELETE FROM issue_book WHERE issue_book.ISSUE_ID = ?",
-    [req.params.id],
-    (err, result) => {
-      if (result) {
-        res.status(201).send({ message: "RECORD DELETED SUCCESSFULLY." });
-      }
+
+  db.query("SELECT * FROM booklist WHERE isbn=?", [isbn], (err, result) => {
+    if (result.length > 0) {
+      // res.json(result);
+
+      db.query(
+        "SELECT * FROM issue_book WHERE issue_book.BOOK_ID =?",
+        [result[0].BOOK_ID],
+        (err, exist) => {
+          if (exist.length > 0) {
+            db.query(
+              "DELETE FROM issue_book WHERE issue_book.BOOK_ID = ?",
+              [result[0].BOOK_ID],
+              (err, results) => {
+                if (results) {
+                  res
+                    .status(201)
+                    .send({ message: "RECORD DELETED SUCCESSFULLY." });
+                }
+              }
+            );
+          } else {
+            res
+              .status(404)
+              .send({ message: "ISBN DOESN'T EXIST IN THE ISSUE RECORD." });
+          }
+        }
+      );
+    } else {
+      res.status(404).send({ message: "Isbn not found." });
     }
-  );
+  });
 });
 
 module.exports = router;

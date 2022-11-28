@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 const Records = () => {
   const [recordList, setRecordList] = useState("");
   const [email, setEmail] = useState("john@gmail.com");
-  const [issueId, setIssueId] = useState("");
+  // const [issueId, setIssueId] = useState("");
 
   function isDateBeforeToday(date) {
     const checkDate = new Date(date);
@@ -43,7 +43,7 @@ const Records = () => {
             }
           >
             <td>{props.isbn}</td>
-            <td>{props.title}</td>
+            <td>{props.title + props.ISSUE_ID}</td>
             <td>{props.stud_no}</td>
             <td className="name-box">{props.name}</td>
             <td className="email-box">{props.email}</td>
@@ -54,8 +54,43 @@ const Records = () => {
               <button
                 id="delete"
                 onClick={() => {
-                  handleDeleteRecord();
-                  setIssueId(props.ISSUE_ID);
+                  Swal.fire({
+                    title: "Enter Your Password to Confirm Delete",
+                    input: "password",
+                    icon: "warning",
+                    showCancelButton: true,
+                    inputPlaceholder: "Enter your password ",
+                  }).then((confirmPassword) => {
+                    if (confirmPassword.isConfirmed) {
+                      const configData = {
+                        method: "delete",
+                        url: `http://localhost:5000/allRecords/delete/${props.ISSUE_ID}`,
+                        data: {
+                          email,
+                          password: confirmPassword.value,
+                        },
+                      };
+                      axios(configData)
+                        .then((result) => {
+                          console.log("result" + result);
+                          Toast.fire({
+                            icon: "success",
+                            title: result.data.message,
+                          }).then(() => window.location.reload(false));
+                        })
+                        .catch((err) => {
+                          if (err) {
+                            Toast.fire({
+                              icon: "error",
+                              showCancelButton: false,
+                              title:
+                                err.response.data.message ||
+                                "Password is Incorrect",
+                            });
+                          }
+                        });
+                    }
+                  });
                 }}
               >
                 Delete
@@ -70,43 +105,6 @@ const Records = () => {
       recordCleanup = false;
     };
   }, []);
-
-  const handleDeleteRecord = async () => {
-    await Swal.fire({
-      title: "Enter Your Password to Confirm Delete",
-      input: "password",
-      icon: "warning",
-      showCancelButton: true,
-      inputPlaceholder: "Enter your password ",
-    }).then((confirmPassword) => {
-      if (confirmPassword.isConfirmed) {
-        const configData = {
-          method: "delete",
-          url: `http://localhost:5000/allRecords/delete/${issueId}`,
-          data: {
-            email,
-            password: confirmPassword.value,
-          },
-        };
-
-        axios(configData)
-          .then((result) => {
-            Toast.fire({
-              icon: "success",
-              title: result.data.message,
-            }).then(() => window.location.reload(false));
-          })
-          .catch(async (error) => {
-            console.log(error);
-            await Toast.fire({
-              icon: "error",
-              showCancelButton: false,
-              title: error.response.data.message,
-            });
-          });
-      }
-    });
-  };
 
   return (
     <>
