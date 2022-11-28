@@ -47,6 +47,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 // RETURN DELETE
 router.delete("/return/:id", async (req, res) => {
+  const isbn = req.body.isbn;
   db.query(
     "DELETE FROM issue_book WHERE issue_book.ISSUE_ID = ?",
     [req.params.id],
