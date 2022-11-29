@@ -158,6 +158,7 @@ const ReturnBook = () => {
                   // value={isbn}
                   maxLength="12"
                   required
+                  autoComplete="off"
                 />
               </div>
               <div className="return-field">
@@ -166,9 +167,10 @@ const ReturnBook = () => {
                   type="text"
                   id="title"
                   placeholder="Enter title"
-                  value={scan ? titleScan : title}
+                  value={scan ? titleScan : title.toUpperCase()}
                   onChange={(e) => setTitle(e.target.value)}
                   required
+                  autoComplete="off"
                 />
               </div>
               <div className="return-field">
@@ -180,6 +182,7 @@ const ReturnBook = () => {
                   value={scan ? studIdScan : "AY" + studId}
                   onChange={(e) => handleStudId(e)}
                   required
+                  autoComplete="off"
                 />
               </div>
               <div className="return-field">
@@ -191,6 +194,7 @@ const ReturnBook = () => {
                   value={scan ? nameScan : name}
                   onChange={(e) => setName(e.target.value)}
                   required
+                  autoComplete="off"
                 />
               </div>
               <div className="return-field">
@@ -202,6 +206,7 @@ const ReturnBook = () => {
                   value={scan ? emailScan : email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  autoComplete="off"
                 />
               </div>
               <div className="return-field">
