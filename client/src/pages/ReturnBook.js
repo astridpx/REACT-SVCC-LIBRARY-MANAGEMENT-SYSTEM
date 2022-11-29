@@ -1,26 +1,75 @@
 import { useState } from "react";
+// import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 // import "../Css/ReturnBook.css";
 import "../Styles/ReturnBook.scss";
 import { QrReader } from "react-qr-reader";
 import { FormatISBN } from "../helpers/isbn.format";
+import { FormatStudID } from "../helpers/studID.format";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const ReturnBook = () => {
   const [isbn, setISBN] = useState("");
-  const [isbnScan, setIsbnScan] = useState("");
+  const [title, setTitle] = useState("");
+  const [studId, setStudId] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  // const navigate = useNavigate();
+
+  // DEFAULT DATE RETURN => CURRENT DATE
+  const date = new Date();
+  const futureDate = date.getDate();
+  date.setDate(futureDate);
+  const today = date.toLocaleDateString("en-CA");
+
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  // SCAN DATA DECODE
   const [scan, setScan] = useState(false);
+  const [isbnScan, setIsbnScan] = useState("");
+  const [titleScan, setTitleScan] = useState("");
+  const [studIdScan, setStudIdScan] = useState("");
+  const [nameScan, setNameScan] = useState("");
+  const [emailScan, setEmailScan] = useState("");
 
   const Scanner = (
     <>
       <QrReader
         onResult={(result, error) => {
           if (result) {
-            alert(result);
-            setIsbnScan(result);
+            const url = `http://localhost:5000/allRecords/return/data-scan/${result.text}`;
+
+            axios
+              .get(url)
+              .then(async (results) => {
+                await results.data.map((props) => {
+                  setIsbnScan(props.isbn);
+                  setTitleScan(props.title);
+                  setNameScan(props.name);
+                  setStudIdScan(props.stud_no);
+                  setEmailScan(props.email);
+                  return true;
+                });
+              })
+              .catch((err) => {
+                Toast.fire({
+                  icon: "error",
+                  title: err.response.data.message,
+                });
+              });
             // window.location.reload(false);
-          }
-          if (!!error) {
-            console.log(error);
           }
         }}
         style={{ position: "absolute", top: "0" }}
@@ -32,19 +81,71 @@ const ReturnBook = () => {
   const handleISBN = (e) => {
     const formatedISBN = FormatISBN(e.target.value);
     setISBN(formatedISBN);
-    // <FormatISBN />;
-    FormatISBN();
+  };
+
+  const handleStudId = (e) => {
+    const formatedStudID = FormatStudID(e.target.value);
+    setStudId(formatedStudID);
+  };
+
+  const configData = {
+    method: "delete",
+    url: "http://localhost:5000/allRecords/return/",
+    data: {
+      isbn: isbn || isbnScan,
+      title,
+      name,
+      email,
+    },
+  };
+  const HandleSubmit = (e) => {
+    e.preventDefault();
+    axios(configData)
+      .then((result) => {
+        Toast.fire({
+          icon: "success",
+          title: result.data.message,
+        }).then(() => window.location.reload(false));
+        // .finally(() => navigate("/All-Records"));
+      })
+      .catch((err) => {
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.message,
+        });
+      });
   };
 
   return (
     <>
+      {/* <form
+        action=""
+        style={{ display: "block" }}
+        onSubmit={(e) => handleScanSubmit(e)}
+      >
+        <input
+          type="text"
+          value={scanDecode}
+          onChange={(e) => {
+            // scanBtnRef.current.click();
+            // setScanDecode(e.target.value);
+          }}
+        />
+        <button
+          // type="button"
+          ref={scanBtnRef}
+          onClick={() => console.log("BTN REF CLICK")}
+        >
+          ScanSubmit
+        </button>
+      </form> */}
       <div className="return-container">
         <div className="nav-side">
           <Sidebar return="active" />
         </div>
         <div className="return-form-container">
           <div className="form-return-wrapper">
-            <form action="">
+            <form action="" onSubmit={(e) => HandleSubmit(e)}>
               <div className="return-field">
                 <label htmlFor="isbn">ISBN</label>
                 <input
@@ -54,33 +155,62 @@ const ReturnBook = () => {
                   placeholder="Enter isbn"
                   onChange={handleISBN}
                   value={scan ? isbnScan : isbn}
+                  // value={isbn}
                   maxLength="12"
+                  required
                 />
               </div>
               <div className="return-field">
                 <label htmlFor="title">Title</label>
-                <input type="text" id="title" placeholder="Enter title" />
+                <input
+                  type="text"
+                  id="title"
+                  placeholder="Enter title"
+                  value={scan ? titleScan : title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
               </div>
               <div className="return-field">
                 <label htmlFor="studID">Student I.D.</label>
-                <input type="text" id="studID" placeholder="Enter stud id" />
+                <input
+                  type="text"
+                  id="studID"
+                  placeholder="Enter stud id"
+                  value={scan ? studIdScan : "AY" + studId}
+                  onChange={(e) => handleStudId(e)}
+                  required
+                />
               </div>
               <div className="return-field">
                 <label htmlFor="name">Name</label>
-                <input type="text" id="name" placeholder="Enter name" />
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Enter name"
+                  value={scan ? nameScan : name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
               </div>
               <div className="return-field">
                 <label htmlFor="email">Email</label>
-                <input type="text" id="email" placeholder="Enter email" />
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Enter email"
+                  value={scan ? emailScan : email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
               </div>
               <div className="return-field">
                 <label htmlFor="returnDate">Date</label>
-                <input type="date" id="returnDate" />
+                <input type="date" id="returnDate" defaultValue={today} />
               </div>
-              <button type="button" id="btn-return">
-                Return
-              </button>
+              <button id="btn-return">Return</button>
             </form>
+
             {/* QR BOX */}
             <div className="qr-container">
               <div className="upper-box">
