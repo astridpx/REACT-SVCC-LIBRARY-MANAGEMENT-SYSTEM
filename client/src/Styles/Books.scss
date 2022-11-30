@@ -26,7 +26,7 @@
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
-.book-section {
+.book-sections {
   width: 100%;
   min-width: $min-width;
   height: 100%;
@@ -79,7 +79,7 @@
 
   // table
   .table-section {
-    height: $table-wrapper-height;
+    height: 400px;
     width: 100%;
     overflow: auto;
 
@@ -102,8 +102,8 @@
       // border-bottom: 1px solid #000;
       text-align: center;
       font-weight: 400;
-      font-size: 14px;
-      padding: 7px 9px;
+      font-size: 13px;
+      padding: 5px 9px;
       word-wrap: break-word;
       max-height: 4rem;
       // height: 4rem;
@@ -153,7 +153,7 @@
 // }
 
 @media screen and (max-width: $media-screen) {
-  .book-section {
+  .book-sections {
     min-width: $min-width;
     section {
       width: 100%;
