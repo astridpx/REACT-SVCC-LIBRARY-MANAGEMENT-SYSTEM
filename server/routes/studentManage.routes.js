@@ -64,6 +64,19 @@ router.put("/accept/:id", async (req, res) => {
   );
 });
 
+// DELETE
+router.delete("/reject/:id", async (req, res) => {
+  db.query(
+    "DELETE FROM student_acc WHERE STUD_ID=?",
+    [req.params.id],
+    (err, result) => {
+      if (result) {
+        res.status(201).send({ message: "USER ACCOUNT REJECTED." });
+      }
+    }
+  );
+});
+
 // REGISTER
 router.post("/register", async (req, res) => {
   const name = req.body.name;
@@ -293,19 +306,6 @@ router.put("/update/:id", async (req, res) => {
             }
           }
         );
-      }
-    }
-  );
-});
-
-// DELETE
-router.delete("/reject/:id", async (req, res) => {
-  db.query(
-    "DELETE FROM student_acc WHERE STUD_ID=?",
-    [req.params.id],
-    (err, result) => {
-      if (result) {
-        res.status(201).send({ message: "USER ACCOUNT REJECTED." });
       }
     }
   );

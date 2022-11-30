@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Profile from "../../assets/profile.png";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const AccountApplicants = () => {
   const [applicantList, setApplicantList] = useState("");
+
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   useEffect(() => {
     let applicantCleanpUp = true;
@@ -21,8 +35,79 @@ export const AccountApplicants = () => {
             <td>{props.course}</td>
             <td className="email-box">{props.email}</td>
             <td className="action">
-              <button id="accept">Accept</button>
-              <button id="reject">Reject</button>
+              <button
+                type=""
+                id="accept"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const url = `http://localhost:5000/students/accept/${props.STUD_ID}`;
+
+                  Swal.fire({
+                    title: "Are you sure you want to accept this person?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Accept this person!",
+                  }).then((res) => {
+                    if (res.isConfirmed) {
+                      axios
+                        .put(url)
+                        .then((result) => {
+                          Toast.fire({
+                            icon: "success",
+                            title: result.data.message,
+                          });
+                        })
+                        .catch((err) => {
+                          Toast.fire({
+                            icon: "error",
+                            title: err.response.data.message,
+                          });
+                        });
+                    }
+                  });
+                }}
+              >
+                Accept
+              </button>
+              <button
+                id="reject"
+                onClick={(e) => {
+                  e.preventDefault();
+                  const url = `http://localhost:5000/students/reject/${props.STUD_ID}`;
+
+                  Swal.fire({
+                    title: "Are you sure you want to reject this person?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes, Reject this person!",
+                  }).then((res) => {
+                    if (res.isConfirmed) {
+                      axios
+                        .delete(url)
+                        .then((result) => {
+                          Toast.fire({
+                            icon: "success",
+                            title: result.data.message,
+                          });
+                        })
+                        .catch((err) => {
+                          Toast.fire({
+                            icon: "error",
+                            title: err.response.data.message,
+                          });
+                        });
+                    }
+                  });
+                }}
+              >
+                Reject
+              </button>
             </td>
           </tr>
         );
