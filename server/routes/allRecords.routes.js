@@ -85,7 +85,7 @@ router.get("/return/data-scan/:isbn", async (req, res) => {
 // RETURN DELETE
 router.delete("/return", async (req, res) => {
   const isbn = req.body.isbn;
-  console.log(isbn);
+  // console.log(isbn);
   db.query("SELECT * FROM booklist WHERE isbn=?", [isbn], (err, result) => {
     if (result.length > 0) {
       // res.json(result);

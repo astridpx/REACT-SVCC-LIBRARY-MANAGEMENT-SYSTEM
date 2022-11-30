@@ -132,7 +132,7 @@ const Books = () => {
         <div className="nav-side">
           <Sidebar books="active" />
         </div>
-        <div className="book-section">
+        <div className="book-sections">
           <section>
             <header>
               {/* content */}

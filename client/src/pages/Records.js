@@ -72,7 +72,7 @@ const Records = () => {
                       };
                       axios(configData)
                         .then((result) => {
-                          console.log("result" + result);
+                          // console.log("result" + result);
                           Toast.fire({
                             icon: "success",
                             title: result.data.message,

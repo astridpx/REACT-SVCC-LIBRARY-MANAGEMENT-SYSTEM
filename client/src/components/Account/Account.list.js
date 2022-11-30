@@ -1,9 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Profile from "../../assets/profile.png";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const AccountList = () => {
   const [accountList, setAccountList] = useState("");
+  const [email, setEmail] = useState("john@gmail.com");
+
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
 
   useEffect(() => {
     let accListCleanup = true;
@@ -21,8 +35,49 @@ export const AccountList = () => {
             <td>{props.section}</td>
             <td className="email-box">{props.email}</td>
             <td className="action">
-              <button id="edit">Edit</button>
-              <button id="delete">Delete</button>
+              {/* <button id="edit">Edit</button> */}
+              <button
+                id="delete"
+                onClick={() => {
+                  Swal.fire({
+                    title: "Enter Your Password to Confirm Delete",
+                    input: "password",
+                    icon: "warning",
+                    showCancelButton: true,
+                    inputPlaceholder: "Enter your password ",
+                  }).then((confirmPassword) => {
+                    if (confirmPassword.isConfirmed) {
+                      const configData = {
+                        method: "delete",
+                        url: `http://localhost:5000/students/disband/${props.STUD_ID}`,
+                        data: {
+                          email,
+                          password: confirmPassword.value,
+                        },
+                      };
+                      axios(configData)
+                        .then((result) => {
+                          Toast.fire({
+                            icon: "success",
+                            title: result.data.message,
+                          });
+                          // .then(() => window.location.reload(false));
+                        })
+                        .catch((err) => {
+                          if (err) {
+                            Toast.fire({
+                              icon: "error",
+                              showCancelButton: false,
+                              title: err.response.data.message,
+                            });
+                          }
+                        });
+                    }
+                  });
+                }}
+              >
+                Delete
+              </button>
             </td>
           </tr>
         );
@@ -46,19 +101,6 @@ export const AccountList = () => {
       </thead>
       <tbody>
         {accountList.length > 0 ? accountList : <h4>No Member Yet</h4>}
-        <tr>
-          <td className="name-box">
-            <img src={Profile} alt="" /> John Angelo Lante
-          </td>
-          <td>AY2020-2828</td>
-          <td>Astrid</td>
-          <td>BSIT</td>
-          <td className="email-box">lanteangelo123@gmail.com</td>
-          <td className="action">
-            <button id="edit">Edit</button>
-            <button id="delete">Delete</button>
-          </td>
-        </tr>
       </tbody>
     </table>
   );

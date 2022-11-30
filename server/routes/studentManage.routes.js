@@ -99,8 +99,8 @@ router.post("/register", async (req, res) => {
                 if (err) throw err;
 
                 db.query(
-                  "INSERT INTO student_acc (name, stud_no, section, email, password) VALUES(?, ?, ?, ?, ?)",
-                  [name, studNo, section, email, hashPassword],
+                  "INSERT INTO student_acc (name, stud_no, course, section, email, password) VALUES(?, ?, ?, ?, ?, ?)",
+                  [name, studNo, course, section, email, hashPassword],
                   (err, result) => {
                     if (err) {
                       res
@@ -128,6 +128,7 @@ router.put("/update/:id", async (req, res) => {
   const id = req.params.id;
   const name = req.body.name;
   const studNo = req.body.stud_no;
+  const course = req.body.course;
   const section = req.body.section;
   const email = req.body.email;
   const password = req.body.password;
@@ -157,6 +158,7 @@ router.put("/update/:id", async (req, res) => {
                         {
                           name: name,
                           stud_no: studNo,
+                          course: course,
                           section: section,
                           email: email,
                           password: hashPassword,
@@ -297,16 +299,59 @@ router.put("/update/:id", async (req, res) => {
 });
 
 // DELETE
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/reject/:id", async (req, res) => {
   db.query(
     "DELETE FROM student_acc WHERE STUD_ID=?",
     [req.params.id],
     (err, result) => {
       if (result) {
-        res.status(201).send({ message: "USER ACCOUNT DELETED SUCCESSFULLY." });
+        res.status(201).send({ message: "USER ACCOUNT REJECTED." });
       }
     }
   );
+});
+
+// DELETE
+router.delete("/disband/:id", async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  db.query("SELECT * FROM admin WHERE email=?", [email], (err, result) => {
+    if (result.length > 0) {
+      bcrypt.compare(password, result[0].password).then((match) => {
+        if (!match) {
+          res.status(409).send({ message: "Invalid Password." });
+        } else {
+          db.query(
+            "SELECT * FROM issue_book WHERE STUD_ID=?",
+            [req.params.id],
+            (err, result) => {
+              if (result.length > 0) {
+                res.status(409).send({
+                  message:
+                    "SORRY YOU CAN'T DELETE  ACCOUNT  WITH A PENDING TRANSACTION.",
+                });
+              } else {
+                db.query(
+                  "DELETE FROM student_acc WHERE STUD_ID=?",
+                  [req.params.id],
+                  (err, result) => {
+                    if (result) {
+                      res.status(201).send({
+                        message: "USER ACCOUNT DEACTIVATED SUCCESSFULLY.",
+                      });
+                    }
+                  }
+                );
+              }
+            }
+          );
+        }
+      });
+    } else {
+      res.status(409).send({ message: "Email Doesn't Exist." });
+    }
+  });
 });
 
 module.exports = router;
