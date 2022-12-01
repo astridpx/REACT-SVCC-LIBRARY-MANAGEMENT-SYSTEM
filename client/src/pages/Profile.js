@@ -13,10 +13,11 @@ import { ProfileView } from "../components/Profile/Profile.view";
 import { ProfileEdit } from "../components/Profile/Prodile.edit";
 
 const Profile = () => {
-  const [adminInfo, setAdminInfo] = useState("");
+  // const [adminInfo, setAdminInfo] = useState("");
   const [adminName, setAdminName] = useState("");
   const [adminRole, setAdminRole] = useState("");
-  const [adminProfile, setAdminProfile] = useState("");
+  // const [adminProfile, setAdminProfile] = useState("");
+  const [adminIdUpdate, setAdminIdUpdate] = useState();
 
   //  show / hide profile details
   const [view, setView] = useState(true);
@@ -35,6 +36,9 @@ const Profile = () => {
     adminInfoPass.map((props) => {
       setAdminName(props[0].name);
       setAdminRole(props[0].role);
+      setAdminIdUpdate(props[0].ADMIN_ID);
+
+      return true;
     });
   };
 
@@ -55,7 +59,6 @@ const Profile = () => {
                     onClick={() => {
                       setView(true);
                       setEdit(false);
-
                       // set id
                       setIdView("active");
                       setIdEdit(null);
@@ -118,7 +121,7 @@ const Profile = () => {
               {/* detailes */}
               <div className="profile-details">
                 {edit ? (
-                  <ProfileEdit />
+                  <ProfileEdit adminId={adminIdUpdate} />
                 ) : (
                   <ProfileView adminInfoFunction={adminInfoFunction} />
                 )}

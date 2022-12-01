@@ -31,7 +31,7 @@ const BarChart = () => {
   const series = [
     {
       name: "Students",
-      data: [20, 29, 10, 47, 80, 10, 90],
+      data: [20, 29, 10, 47, 40, 10, 50],
     },
   ];
 
@@ -79,7 +79,7 @@ const BarChart = () => {
     },
     yaxis: {
       min: 0,
-      max: 100,
+      max: 50,
     },
   };
 

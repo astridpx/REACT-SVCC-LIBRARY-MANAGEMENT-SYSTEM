@@ -71,7 +71,7 @@ export const FormAdd = ({ hideForm }) => {
         });
         Toast.fire({
           icon: "error",
-          title: error.response.data,
+          title: error.response.data.message,
         });
       });
   };
