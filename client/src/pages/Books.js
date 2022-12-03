@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/Books.css";
 import "../Styles/Books.scss";
 
@@ -123,6 +124,7 @@ const Books = () => {
 
   return (
     <>
+      <Navbar />
       {/* show hide form */}
       {showForm && <FormAdd hideForm={hideForm} />}
       {showEditForm && (

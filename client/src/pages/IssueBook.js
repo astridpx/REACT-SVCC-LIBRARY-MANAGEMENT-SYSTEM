@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/IssueBook.css";
 import "../Styles/IssueBook.scss";
 import { FormatISBN } from "../helpers/isbn.format";
@@ -79,6 +80,7 @@ const IssueBook = () => {
   };
   return (
     <>
+      <Navbar />
       <div className="issue-book-container">
         <div className="nav-side">
           <Sidebar issue="active" />

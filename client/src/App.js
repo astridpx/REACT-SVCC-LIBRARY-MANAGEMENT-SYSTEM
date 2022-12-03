@@ -13,14 +13,18 @@ import AllRecord from "./pages/Records";
 import Account from "./pages/Accounts";
 import Profile from "./pages/Profile";
 
+// LOGIN REGISTER
+import Login from "./pages/Login-Register/Login";
 function App() {
   return (
     <>
       {/* basename={window.location.pathname || ""} */}
+
       <BrowserRouter>
-        <Navbar />
+        {/* <Navbar /> */}
         <Routes>
-          <Route path="/" exact element={<Dashboard />} />
+          <Route path="/" exact element={<Login />} />
+          <Route path="/Dashboard" exact element={<Dashboard />} />
           <Route path="/Issue-Books" exact element={<IssueBooks />} />
           <Route path="/Return-Books" exact element={<ReturnBook />} />
           <Route path="/Books" exact element={<Book />} />

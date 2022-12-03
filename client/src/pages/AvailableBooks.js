@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/AvailableBooks.css";
 import "../Styles/AvailableBooks.scss";
 import axios from "axios";
@@ -35,6 +36,7 @@ const AvailableBooks = () => {
 
   return (
     <>
+      <Navbar />
       <div className="books-container">
         <div className="nav-side">
           <Sidebar availBook="active" />

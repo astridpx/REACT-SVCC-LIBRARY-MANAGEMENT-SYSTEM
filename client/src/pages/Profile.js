@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/Profile.css";
 import "../Styles/Profile.scss";
 import ProImg from "../assets/profile.png";
@@ -44,6 +45,7 @@ const Profile = () => {
 
   return (
     <>
+      <Navbar />
       <div className="profile-container">
         <div className="nav-side">
           <Sidebar profile="active" />

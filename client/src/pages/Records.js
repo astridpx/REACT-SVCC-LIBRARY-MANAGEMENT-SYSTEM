@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/Records.css";
 import "../Styles/Records.scss";
 import axios from "axios";
@@ -106,6 +107,7 @@ const Records = () => {
 
   return (
     <>
+      <Navbar />
       <div className="record-container">
         <div className="nav-side">
           <Sidebar records="active" />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/ReturnBook.css";
 import "../Styles/ReturnBook.scss";
 import { QrReader } from "react-qr-reader";
@@ -118,27 +119,7 @@ const ReturnBook = () => {
 
   return (
     <>
-      {/* <form
-        action=""
-        style={{ display: "block" }}
-        onSubmit={(e) => handleScanSubmit(e)}
-      >
-        <input
-          type="text"
-          value={scanDecode}
-          onChange={(e) => {
-            // scanBtnRef.current.click();
-            // setScanDecode(e.target.value);
-          }}
-        />
-        <button
-          // type="button"
-          ref={scanBtnRef}
-          onClick={() => console.log("BTN REF CLICK")}
-        >
-          ScanSubmit
-        </button>
-      </form> */}
+      <Navbar />
       <div className="return-container">
         <div className="nav-side">
           <Sidebar return="active" />

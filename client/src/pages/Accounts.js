@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 // import "../Css/Accounts.css";
 import "../Styles/Accounts.scss";
 // import Profile from "../assets/profile.png";
@@ -28,6 +29,7 @@ const Accounts = () => {
 
   return (
     <>
+      <Navbar />
       <div className="account-container">
         <div className="nav-side">
           <Sidebar account="active" />

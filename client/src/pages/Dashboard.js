@@ -5,6 +5,7 @@ import Charts from "../components/Chart";
 import Clock from "../components/Clock";
 import Calendar from "../components/Calendar";
 import Sidebar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 import { IoIosPeople } from "react-icons/io";
 import { MdPeopleAlt } from "react-icons/md";
 import { GoIssueOpened } from "react-icons/go";
@@ -13,6 +14,7 @@ import { ImBooks } from "react-icons/im";
 const Dashboard = () => {
   return (
     <>
+      <Navbar />
       <div className="dashboard-container">
         <div className="nav-side">
           <Sidebar dashboard="active" />
