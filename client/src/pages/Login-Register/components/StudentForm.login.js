@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { Link } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
@@ -69,14 +69,17 @@ const Studentform = ({ AdminStudentloginForm }) => {
           </div>
 
           <button type="button" className="stud-signIn">
-            SIGN IN
+            SIGN IN AS A STUDENT
           </button>
         </form>
 
         {/* footer */}
         <div className="formBottom">
           <p className="signUp-txt">
-            Don't have an account yet? <span>Sign Up</span>
+            Don't have an account yet?
+            <span>
+              <Link to="/Student-Register">Sign Up</Link>
+            </span>
           </p>
           <p className="loginAdmin-txt">
             Login as

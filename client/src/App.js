@@ -15,6 +15,9 @@ import Profile from "./pages/Profile";
 
 // LOGIN REGISTER
 import Login from "./pages/Login-Register/Login";
+// STUDENT REGISTER
+import StudentRegister from "./pages/Login-Register/components/Student.register";
+
 function App() {
   return (
     <>
@@ -24,6 +27,7 @@ function App() {
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" exact element={<Login />} />
+          <Route path="/Student-Register" exact element={<StudentRegister />} />
           <Route path="/Dashboard" exact element={<Dashboard />} />
           <Route path="/Issue-Books" exact element={<IssueBooks />} />
           <Route path="/Return-Books" exact element={<ReturnBook />} />
