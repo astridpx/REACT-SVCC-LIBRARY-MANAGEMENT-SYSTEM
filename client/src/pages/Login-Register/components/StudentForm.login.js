@@ -4,7 +4,10 @@ import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
-const Studentform = ({ AdminStudentloginForm }) => {
+const Studentform = (
+  { AdminStudentloginForm, showSignUpForm },
+  { showSignUpFormValue }
+) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showHide, setShowHide] = useState(false);
@@ -77,8 +80,15 @@ const Studentform = ({ AdminStudentloginForm }) => {
         <div className="formBottom">
           <p className="signUp-txt">
             Don't have an account yet?
-            <span>
-              <Link to="/Student-Register">Sign Up</Link>
+            <span
+              onClick={() => {
+                showSignUpForm(true);
+                // showSignUpFormValue(true);
+                // alert("haha");
+              }}
+            >
+              {/* <Link to="/Student-Register">Sign Up</Link> */}
+              Sign Up
             </span>
           </p>
           <p className="loginAdmin-txt">

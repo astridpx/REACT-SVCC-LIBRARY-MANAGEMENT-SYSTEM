@@ -9,6 +9,7 @@
   @include flexCenter(center);
 }
 
+// ANIMATION FOR ADMIN FOR  TRANSITION
 @-webkit-keyframes flip-scale-down-ver {
   0% {
     -webkit-transform: scale(1) rotateY(0);
@@ -190,6 +191,8 @@
   }
 
   // STUDENT FORM DESIGN
+
+  // ANIMATION FOR SIGN IN FORM TRANSITION
   @-webkit-keyframes flip-scale-up-ver {
     0% {
       -webkit-transform: scale(1) rotateY(0);

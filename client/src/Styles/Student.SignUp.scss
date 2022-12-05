@@ -1,0 +1,150 @@
+@import "../Styles/variable";
+
+.signUp-wrapper {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  width: 80%;
+  height: 80vh;
+  background-color: $main-bg-clr;
+  border: none;
+  border-radius: 15px;
+  max-height: 35rem;
+  overflow: hidden;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.signUp-leftBox {
+  background-color: $main-bg-clr;
+}
+.studentImg-wrap {
+  width: 100%;
+  // background-color: #f3f3f3;
+
+  .studentBigImg {
+    width: 100%;
+    height: 17rem;
+    cursor: pointer;
+  }
+}
+.student-text {
+  padding: 0 1.5rem;
+  text-align: center;
+  color: #fff;
+  p {
+    color: $main-txt-clr;
+  }
+
+  .btn-backSignIn {
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 3rem;
+    height: 3rem;
+    // background-color: $main-bg-clr;
+    background-color: $main-txt-clr;
+    background-color: #fff;
+    color: $main-bg-clr;
+    color: #4b4f56;
+    font-size: 1rem;
+    font-weight: 600;
+    display: block;
+    text-overflow: ellipsis;
+    line-clamp: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    border: none;
+    border-radius: 3rem;
+    transition: 0.3s ease-in;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      width: 13.2rem;
+    }
+    span {
+      top: 0;
+      position: absolute;
+      margin-right: 20px;
+      left: 0;
+      @include flexCenter(center);
+      background-color: #fff;
+      height: 100%;
+      width: 2rem;
+      cursor: pointer;
+      #arrow {
+        font-size: 1.3rem;
+        font-weight: 200;
+        transform: translate(7px, -1px);
+      }
+    }
+  }
+}
+
+// SIGN UP RIGHT BOX / FORM INPUT
+.signUp-rightBox {
+  background-color: #fff;
+}
+.header-signUp {
+  padding-top: 1rem;
+  text-align: center;
+
+  .studentLogo {
+    height: 4.3rem;
+    border-radius: 50%;
+    border: 1px solid white;
+    cursor: pointer;
+    background-color: $main-bg-clr;
+  }
+  h3 {
+    margin-top: 1rem;
+    color: #1c1e21;
+  }
+}
+.signUp-Form {
+  background-color: #fff;
+  height: 100%;
+
+  .signUp-input {
+    margin: 10px 0;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+    height: 2.4rem;
+
+    label {
+      padding-left: 1rem;
+      width: 11rem;
+      margin-right: 10px;
+      font-weight: 500;
+      color: #1c1e21;
+    }
+    input {
+      outline: none;
+      padding: 7px 5px;
+      width: 20vw;
+      max-width: 300px;
+      border-radius: 10px;
+      border: 1px solid #7a4f56;
+      background-color: #f3f3f3;
+    }
+  }
+  .signUp-btn-wrap {
+    @include flexCenter(center);
+    margin-top: 1rem;
+
+    .signUp-btn {
+      padding: 8px 22px;
+      font-weight: 600;
+      font-size: 15px;
+      background-color: $main-bg-clr;
+      color: $txt-clr;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-out;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+}

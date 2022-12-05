@@ -27,7 +27,7 @@ function App() {
         {/* <Navbar /> */}
         <Routes>
           <Route path="/" exact element={<Login />} />
-          <Route path="/Student-Register" exact element={<StudentRegister />} />
+          {/* <Route path="/Student-Register" exact element={<StudentRegister />} /> */}
           <Route path="/Dashboard" exact element={<Dashboard />} />
           <Route path="/Issue-Books" exact element={<IssueBooks />} />
           <Route path="/Return-Books" exact element={<ReturnBook />} />
