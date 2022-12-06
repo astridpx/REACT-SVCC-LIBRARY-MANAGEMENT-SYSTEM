@@ -4,13 +4,20 @@ import StudentLogo from "../../../assets/student.svg";
 import Student from "../../../assets/student-Big-Img.svg";
 import { FaLessThan } from "react-icons/fa";
 
-const StudentRegister = ({ showSignUpForm }) => {
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+import { update } from "../../../Redux/SignUpForm-Redux/signUpSlice";
+
+const StudentRegister = () => {
   const [studId, setStudId] = useState("");
   const [name, setName] = useState("");
   const [section, setSection] = useState("");
   const [course, setCourse] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // REDUX DISPATCH
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -27,7 +34,7 @@ const StudentRegister = ({ showSignUpForm }) => {
             {/* BACK TO SIGN IN BUTTON */}
             <button
               className="btn-backSignIn"
-              onClick={() => showSignUpForm(true)}
+              onClick={() => dispatch(update({ signUpShowValue: false }))}
             >
               <span>
                 <FaLessThan id="arrow" />
@@ -48,7 +55,11 @@ const StudentRegister = ({ showSignUpForm }) => {
             </div>
             <div className="signUp-input">
               <label htmlFor="name">Name</label>
-              <input type="text" name="name" />
+              <input
+                type="text"
+                name="name"
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="signUp-input">
               <label htmlFor="section">Section</label>
