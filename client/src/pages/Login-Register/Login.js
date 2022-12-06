@@ -37,7 +37,7 @@ const Login = () => {
 
             {/* <div className="login-rightBox"></div> */}
             <aside>
-              <div className="overlay">
+              <div className="overlay" onClick={() => alert(showSignUpValue)}>
                 <h3>St. Vincent College of Cabuyao</h3>
                 <h1>Truth Knowledge Service</h1>
                 {/* <p>SVCC&copy;2022</p> */}

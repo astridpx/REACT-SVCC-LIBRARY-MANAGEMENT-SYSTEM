@@ -7,7 +7,6 @@ import reportWebVitals from "./reportWebVitals";
 // REDUX
 import { Provider } from "react-redux";
 import store from "./Redux/store";
-// import store from "../src/Redux/SignUpForm-Redux/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
