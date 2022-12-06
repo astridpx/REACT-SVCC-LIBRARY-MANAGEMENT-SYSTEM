@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
@@ -13,19 +15,60 @@ const AdminForm = ({ AdminStudentloginForm }) => {
   const [password, setPassword] = useState("");
   const [showHide, setShowHide] = useState(false);
 
+  const navigate = useNavigate();
   // SHOW HIDE PASSWORD FUNCTION
   const ShowHidePassword = () => {
     setShowHide(!showHide);
   };
   const dispatch = useDispatch();
 
-  const x = () => {
-    dispatch(update({ name: email }));
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const HandleSubmitAdminLogin = (e) => {
+    e.preventDefault();
+
+    const dataConfig = {
+      url: "http://localhost:5000/admin/adminLogin",
+      method: "post",
+      data: {
+        email,
+        password,
+      },
+    };
+
+    axios(dataConfig)
+      .then((result) => {
+        Toast.fire({
+          icon: "success",
+          title: result.data.message,
+        }).then(() => navigate("/Dashboard"));
+      })
+      .catch((error) => {
+        Toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      });
   };
 
   return (
     <>
-      <form action="" className="adminAnimate">
+      <form
+        action=""
+        className="adminAnimate"
+        onSubmit={(e) => HandleSubmitAdminLogin(e)}
+      >
         <header className="loginHead">
           <h2>Welcome To</h2>
           <h1>SVCC LIBRARY MANAGEMENT SYSTEM</h1>
@@ -57,6 +100,7 @@ const AdminForm = ({ AdminStudentloginForm }) => {
               type={!showHide ? "password" : "text"}
               name="password"
               placeholder="Password"
+              autoComplete="off"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -78,7 +122,7 @@ const AdminForm = ({ AdminStudentloginForm }) => {
             </label>
           </div>
           <div className="inputField">
-            <button type="button" className="btn-signIn" onClick={x}>
+            <button type="submit" className="btn-signIn">
               SIGN IN
             </button>
           </div>

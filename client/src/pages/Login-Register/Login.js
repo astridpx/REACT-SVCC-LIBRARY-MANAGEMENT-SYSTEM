@@ -25,27 +25,29 @@ const Login = () => {
     <>
       <div className="loginContainer">
         <div className="login-overlay">
-          {!!showSignUpValue ? (
-            <StudentSignUp />
-          ) : (
-            <div className="loginform-wrapper">
-              {/* FORMS */}
-              {!showStudForm ? (
-                <AdminForm AdminStudentloginForm={AdminStudentloginForm} />
-              ) : (
-                <Studentform AdminStudentloginForm={AdminStudentloginForm} />
-              )}
+          <div className="login-wrapper">
+            {!!showSignUpValue ? (
+              <StudentSignUp />
+            ) : (
+              <div className="loginform-wrapper">
+                {/* FORMS */}
+                {!showStudForm ? (
+                  <AdminForm AdminStudentloginForm={AdminStudentloginForm} />
+                ) : (
+                  <Studentform AdminStudentloginForm={AdminStudentloginForm} />
+                )}
 
-              {/* <div className="login-rightBox"></div> */}
-              <aside className="loginRightBox">
-                <div className="overlay">
-                  <h3>St. Vincent College of Cabuyao</h3>
-                  <h1>Truth Knowledge Service</h1>
-                  {/* <p>SVCC&copy;2022</p> */}
-                </div>
-              </aside>
-            </div>
-          )}
+                {/* <div className="login-rightBox"></div> */}
+                <aside className="loginRightBox">
+                  <div className="overlay">
+                    <h3>St. Vincent College of Cabuyao</h3>
+                    <h1>Truth Knowledge Service</h1>
+                    {/* <p>SVCC&copy;2022</p> */}
+                  </div>
+                </aside>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

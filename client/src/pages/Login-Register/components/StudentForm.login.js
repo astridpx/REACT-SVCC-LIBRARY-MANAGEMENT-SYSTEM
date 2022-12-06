@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 // REDUX
 import { useSelector, useDispatch } from "react-redux";
@@ -13,11 +15,55 @@ const Studentform = ({ AdminStudentloginForm }) => {
   const [password, setPassword] = useState("");
   const [showHide, setShowHide] = useState(false);
 
+  const navigate = useNavigate();
+
   // SHOW HIDE PASSWORD FUNCTION
   const ShowHidePassword = () => {
     setShowHide(!showHide);
   };
+
+  // REDUX DISPATCH
   const dispatch = useDispatch();
+
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const HandleSUbmitStudentLogin = (e) => {
+    e.preventDefault();
+
+    const dataConfig = {
+      url: "http://localhost:5000/students/login",
+      method: "post",
+      data: {
+        email,
+        password,
+      },
+    };
+
+    axios(dataConfig)
+      .then((result) => {
+        Toast.fire({
+          icon: "success",
+          title: result.data.message,
+        }).then(() => dispatch(update({ signUpShowValue: false })));
+      })
+      .catch((error) => {
+        Toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      });
+  };
 
   return (
     <>
@@ -28,7 +74,11 @@ const Studentform = ({ AdminStudentloginForm }) => {
           <p>Login to get the books that interest you.</p>
         </header>
 
-        <form action="" className="studentForm">
+        <form
+          action=""
+          className="studentForm"
+          onSubmit={(e) => HandleSUbmitStudentLogin(e)}
+        >
           <div className="studInput">
             <label htmlFor="email">
               <FiUser id="icons" />
@@ -73,7 +123,7 @@ const Studentform = ({ AdminStudentloginForm }) => {
             </label>
           </div>
 
-          <button type="button" className="stud-signIn">
+          <button type="submit" className="stud-signIn">
             SIGN IN AS A STUDENT
           </button>
         </form>

@@ -3,8 +3,10 @@ import "../../../Styles/Student.SignUp.scss";
 import StudentLogo from "../../../assets/student.svg";
 import Student from "../../../assets/student-Big-Img.svg";
 import { FaLessThan } from "react-icons/fa";
-import { IoReturnUpBackOutline } from "react-icons/io5";
 import BtnBack from "../../../assets/Arrow-back.svg";
+import { FormatStudID } from "../../../helpers/studID.format";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 // REDUX
 import { useSelector, useDispatch } from "react-redux";
@@ -26,6 +28,56 @@ const StudentRegister = () => {
   useEffect(() => {
     InputRef.current.focus();
   }, []);
+
+  // FORNATING STUD ID
+  const handleStudId = (e) => {
+    const formatedStudID = FormatStudID(e.target.value);
+    setStudId("AY" + formatedStudID);
+  };
+
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
+  const HandleSubmitSignUp = (e) => {
+    e.preventDefault();
+
+    const dataConfig = {
+      url: "http://localhost:5000/students/register",
+      method: "post",
+      data: {
+        name,
+        stud_no: studId,
+        course,
+        section,
+        email,
+        password,
+      },
+    };
+
+    axios(dataConfig)
+      .then((result) => {
+        Toast.fire({
+          icon: "success",
+          title: result.data.message,
+        }).then(() => dispatch(update({ signUpShowValue: false })));
+      })
+      .catch((error) => {
+        Toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
+      });
+  };
 
   return (
     <>
@@ -63,7 +115,11 @@ const StudentRegister = () => {
             <h3>Sign Up as Student</h3>
           </header>
 
-          <form action="" className="signUp-Form">
+          <form
+            action=""
+            className="signUp-Form"
+            onSubmit={(e) => HandleSubmitSignUp(e)}
+          >
             <div className="signUp-input">
               <label htmlFor="id">I.D.</label>
               <input
@@ -74,7 +130,7 @@ const StudentRegister = () => {
                 autoComplete="off"
                 required
                 value={studId}
-                onChange={(e) => setStudId(e.target.value)}
+                onChange={(e) => handleStudId(e)}
               />
             </div>
             <div className="signUp-input">
@@ -98,7 +154,7 @@ const StudentRegister = () => {
                 placeholder="Enter your section"
                 autoComplete="off"
                 value={section}
-                onChange={(e) => setSection(e.target.value)}
+                onChange={(e) => setSection(e.target.value.toUpperCase())}
               />
             </div>
             <div className="signUp-input">
@@ -110,7 +166,7 @@ const StudentRegister = () => {
                 placeholder="Enter your course"
                 autoComplete="off"
                 value={course}
-                onChange={(e) => setCourse(e.target.value)}
+                onChange={(e) => setCourse(e.target.value.toUpperCase())}
               />
             </div>
             <div className="signUp-input">
@@ -122,7 +178,7 @@ const StudentRegister = () => {
                 placeholder="Enter your email"
                 autoComplete="off"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value.toLowerCase())}
               />
             </div>
             <div className="signUp-input">
@@ -138,7 +194,7 @@ const StudentRegister = () => {
               />
             </div>
             <div className="signUp-btn-wrap">
-              <button type="button" className="signUp-btn">
+              <button type="submit" className="signUp-btn">
                 Save
               </button>
             </div>
