@@ -4,10 +4,11 @@ import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
-const Studentform = (
-  { AdminStudentloginForm, showSignUpForm },
-  { showSignUpFormValue }
-) => {
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+import { update } from "../../../Redux/SignUpForm-Redux/signUpSlice";
+
+const Studentform = ({ AdminStudentloginForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showHide, setShowHide] = useState(false);
@@ -16,6 +17,7 @@ const Studentform = (
   const ShowHidePassword = () => {
     setShowHide(!showHide);
   };
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -82,12 +84,10 @@ const Studentform = (
             Don't have an account yet?
             <span
               onClick={() => {
-                showSignUpForm(true);
-                // showSignUpFormValue(true);
-                // alert("haha");
+                // showSignUpForm(true);
+                dispatch(update({ signUpShowValue: true }));
               }}
             >
-              {/* <Link to="/Student-Register">Sign Up</Link> */}
               Sign Up
             </span>
           </p>

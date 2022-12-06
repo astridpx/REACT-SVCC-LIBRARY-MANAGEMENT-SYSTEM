@@ -5,6 +5,9 @@ import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
+import { useSelector, useDispatch } from "react-redux";
+import { update } from "../../../Redux/SignUpForm-Redux/signUpSlice";
+
 const AdminForm = ({ AdminStudentloginForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,6 +16,11 @@ const AdminForm = ({ AdminStudentloginForm }) => {
   // SHOW HIDE PASSWORD FUNCTION
   const ShowHidePassword = () => {
     setShowHide(!showHide);
+  };
+  const dispatch = useDispatch();
+
+  const x = () => {
+    dispatch(update({ name: email }));
   };
 
   return (
@@ -70,7 +78,7 @@ const AdminForm = ({ AdminStudentloginForm }) => {
             </label>
           </div>
           <div className="inputField">
-            <button type="button" className="btn-signIn">
+            <button type="button" className="btn-signIn" onClick={x}>
               SIGN IN
             </button>
           </div>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import "../Css/Sidebar.css";
 import "../Styles/Sidebar.scss";
 import Profile from "../assets/profile.png";
+
 // icons
 import { BiHomeAlt } from "react-icons/bi";
 import { RiAccountCircleLine } from "react-icons/ri";
@@ -15,8 +16,6 @@ import { BiLogOut } from "react-icons/bi";
 import { GiBlackBook } from "react-icons/gi";
 
 const Sidebar = (props) => {
-  // const [hightlight, setHighlight] = useState("");
-
   return (
     <>
       <div className="sidebar-container">
@@ -25,7 +24,7 @@ const Sidebar = (props) => {
           <div className="image-box">
             <img src={Profile} alt="" />
           </div>
-          <h3>Admin: ASTRID</h3>
+          <h3>ASTRID</h3>
         </div>
         <div className="sidebar">
           <ul>
