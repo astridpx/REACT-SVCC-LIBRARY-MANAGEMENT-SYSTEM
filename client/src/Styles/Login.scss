@@ -1,12 +1,22 @@
 @import "../Styles/variable";
+// @import url("https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap");
 
 .loginContainer {
   height: 100vh;
   width: 100vw;
+  // background-color: aquamarine;
   max-width: 1380px;
   margin: 0 auto;
-  background-color: aquamarine;
+  background-image: url("../assets/svccBG.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.login-overlay {
   @include flexCenter(center);
+  height: inherit;
+  width: inherit;
+  background-color: rgba(0, 0, 0, 0.178);
 }
 
 // ANIMATION FOR ADMIN FOR  TRANSITION
@@ -168,7 +178,7 @@
 
     .overlay {
       position: absolute;
-      background-color: #6b0f2cc2;
+      background-color: #6b0f2cdc;
       height: 100%;
       width: 100%;
       text-align: center;
@@ -179,8 +189,14 @@
       }
 
       h1 {
-        color: $txt-clr;
+        color: #e7e7e7;
         font-size: 3rem;
+        // font-family: "Baskervville", serif;
+        letter-spacing: 4px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        font-style: italic;
+        font-weight: 400;
+        margin: 2rem 1.5rem;
       }
 
       // p {
@@ -331,5 +347,14 @@
         }
       }
     }
+  }
+}
+
+@media only screen and (max-width: $media-screen) {
+  .loginform-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .loginRightBox {
+    display: none;
   }
 }

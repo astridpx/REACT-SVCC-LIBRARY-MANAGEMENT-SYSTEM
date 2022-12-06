@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "../../../Styles/Student.SignUp.scss";
 import StudentLogo from "../../../assets/student.svg";
 import Student from "../../../assets/student-Big-Img.svg";
 import { FaLessThan } from "react-icons/fa";
+import { IoReturnUpBackOutline } from "react-icons/io5";
+import BtnBack from "../../../assets/Arrow-back.svg";
 
 // REDUX
 import { useSelector, useDispatch } from "react-redux";
@@ -16,8 +18,14 @@ const StudentRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const InputRef = useRef();
+
   // REDUX DISPATCH
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    InputRef.current.focus();
+  }, []);
 
   return (
     <>
@@ -45,37 +53,89 @@ const StudentRegister = () => {
         </div>
         <div className="signUp-rightBox">
           <header className="header-signUp">
+            <img
+              src={BtnBack}
+              alt="Arrow back"
+              id="btn-bck"
+              onClick={() => dispatch(update({ signUpShowValue: false }))}
+            />
             <img src={StudentLogo} alt="student Logo" className="studentLogo" />
             <h3>Sign Up as Student</h3>
           </header>
+
           <form action="" className="signUp-Form">
             <div className="signUp-input">
               <label htmlFor="id">I.D.</label>
-              <input type="text" name="id" />
+              <input
+                type="text"
+                name="id"
+                ref={InputRef}
+                placeholder="Enter your I.D."
+                autoComplete="off"
+                required
+                value={studId}
+                onChange={(e) => setStudId(e.target.value)}
+              />
             </div>
             <div className="signUp-input">
               <label htmlFor="name">Name</label>
               <input
                 type="text"
+                placeholder="Enter your name"
+                autoComplete="off"
+                required
                 name="name"
+                value={name}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="signUp-input">
               <label htmlFor="section">Section</label>
-              <input type="text" name="section" />
+              <input
+                type="text"
+                name="section"
+                required
+                placeholder="Enter your section"
+                autoComplete="off"
+                value={section}
+                onChange={(e) => setSection(e.target.value)}
+              />
             </div>
             <div className="signUp-input">
               <label htmlFor="course">Course</label>
-              <input type="text" name="course" />
+              <input
+                type="text"
+                name="course"
+                required
+                placeholder="Enter your course"
+                autoComplete="off"
+                value={course}
+                onChange={(e) => setCourse(e.target.value)}
+              />
             </div>
             <div className="signUp-input">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" />
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Enter your email"
+                autoComplete="off"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="signUp-input">
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" />
+              <input
+                type="password"
+                name="password"
+                required
+                placeholder="Enter your password"
+                autoComplete="off"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <div className="signUp-btn-wrap">
               <button type="button" className="signUp-btn">
