@@ -16,6 +16,11 @@ import { BiLogOut } from "react-icons/bi";
 import { GiBlackBook } from "react-icons/gi";
 
 const Sidebar = (props) => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="sidebar-container">
@@ -77,8 +82,8 @@ const Sidebar = (props) => {
               </Link>
             </li>
             <li>
-              <BiLogOut className="icons" />
-              <Link>Logout</Link>
+              <BiLogOut className="icons" onClick={handleLogout} />
+              <Link onClick={handleLogout}>Logout</Link>
             </li>
           </ul>
         </div>

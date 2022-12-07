@@ -18,6 +18,12 @@ import { GiBlackBook } from "react-icons/gi";
 
 const Navbar = () => {
   const [show, setShow] = useState("none");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="navbar">
@@ -72,8 +78,8 @@ const Navbar = () => {
                 <Link to="/Profile">Profile</Link>
               </li>
               <li>
-                <BiLogOut className="icons" />
-                <Link>Logout</Link>
+                <BiLogOut className="icons" onClick={handleLogout} />
+                <Link onClick={handleLogout}>Logout</Link>
               </li>
             </ul>
           </div>
