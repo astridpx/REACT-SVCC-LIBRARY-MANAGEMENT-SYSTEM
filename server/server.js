@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
-const cookie = require("cookie-parser");
 const cors = require("cors");
 
 // router
@@ -23,7 +22,7 @@ app.use(express.json());
 // app.use(cors());
 app.use(
   cors({
-    // origin: "http://localhost:5000/",
+    // origin: ["http://localhost:5000"],
     origin: "*",
     method: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,

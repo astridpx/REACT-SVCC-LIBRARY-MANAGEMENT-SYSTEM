@@ -27,7 +27,7 @@ const AdminForm = ({ AdminStudentloginForm }) => {
     toast: true,
     position: "center",
     showConfirmButton: false,
-    timer: 1500,
+    timer: 1000,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener("mouseenter", Swal.stopTimer);
@@ -38,6 +38,7 @@ const AdminForm = ({ AdminStudentloginForm }) => {
   const HandleSubmitAdminLogin = (e) => {
     e.preventDefault();
 
+    // axios.defaults.withCredentials = true;
     const dataConfig = {
       url: "http://localhost:5000/admin/adminLogin",
       method: "post",
@@ -52,7 +53,11 @@ const AdminForm = ({ AdminStudentloginForm }) => {
         Toast.fire({
           icon: "success",
           title: result.data.message,
-        }).then(() => navigate("/Dashboard"));
+        })
+          .then(() => {
+            localStorage.setItem("token", result.data.token);
+          })
+          .then(() => navigate("/"));
       })
       .catch((error) => {
         Toast.fire({

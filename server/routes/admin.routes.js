@@ -39,8 +39,9 @@ router.post("/adminLogin", async (req, res) => {
             }
           );
           req.session.user = result;
+
           // console.log(req.session.user);
-          res.status(200).send({ message: "LOGIN SUCCESS.", token, result });
+          res.status(200).send({ message: "LOGIN SUCCESS.", token });
         }
       });
     } else {

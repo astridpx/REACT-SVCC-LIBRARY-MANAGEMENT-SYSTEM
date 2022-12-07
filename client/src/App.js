@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 // pages
 import Dashboard from "./pages/Dashboard";
@@ -15,8 +16,6 @@ import Profile from "./pages/Profile";
 
 // LOGIN REGISTER
 import Login from "./pages/Login-Register/Login";
-// STUDENT REGISTER
-import StudentRegister from "./pages/Login-Register/components/Student.register";
 
 function App() {
   return (
@@ -24,18 +23,19 @@ function App() {
       {/* basename={window.location.pathname || ""} */}
 
       <BrowserRouter>
-        {/* <Navbar /> */}
         <Routes>
-          <Route path="/" exact element={<Login />} />
-          {/* <Route path="/Student-Register" exact element={<StudentRegister />} /> */}
-          <Route path="/Dashboard" exact element={<Dashboard />} />
-          <Route path="/Issue-Books" exact element={<IssueBooks />} />
-          <Route path="/Return-Books" exact element={<ReturnBook />} />
-          <Route path="/Books" exact element={<Book />} />
-          <Route path="/Available-Books" exact element={<AvailableBooks />} />
-          <Route path="/All-Records" exact element={<AllRecord />} />
-          <Route path="/Accounts" exact element={<Account />} />
-          <Route path="/Profile" exact element={<Profile />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" exact element={<Dashboard />} />
+            <Route path="/Issue-Books" exact element={<IssueBooks />} />
+            <Route path="/Return-Books" exact element={<ReturnBook />} />
+            <Route path="/Books" exact element={<Book />} />
+            <Route path="/Available-Books" exact element={<AvailableBooks />} />
+            <Route path="/All-Records" exact element={<AllRecord />} />
+            <Route path="/Accounts" exact element={<Account />} />
+            <Route path="/Profile" exact element={<Profile />} />
+          </Route>
+
+          <Route path="/Login" exact element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>

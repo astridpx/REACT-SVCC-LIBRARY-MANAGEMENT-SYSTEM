@@ -41,7 +41,7 @@ const Navbar = () => {
             <ul>
               <li>
                 <BiHomeAlt className="icons" />
-                <Link to="/Dashboard">Dashboard</Link>
+                <Link to="/">Dashboard</Link>
               </li>
               <li>
                 <BiBookBookmark className="icons" />
