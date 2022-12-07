@@ -72,6 +72,7 @@
     -webkit-animation: flip-scale-down-ver 0.5s linear both;
     animation: flip-scale-down-ver 0.5s linear both;
   }
+
   form {
     height: 100%;
     padding: 0;
@@ -359,7 +360,24 @@
 @media only screen and (max-width: $media-screen) {
   .loginform-wrapper {
     grid-template-columns: 1fr;
+    width: 90%;
+
+    form {
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+
+    // STUDENT
+    .student-form-wrapper {
+      .studentHead {
+        h1 {
+          font-size: 1.8em;
+        }
+      }
+    }
   }
+
   .loginRightBox {
     display: none;
   }
