@@ -10,6 +10,7 @@ const studentRoutes = require("./routes/studentManage.routes");
 const studentLoginRoutes = require("./routes/studentLogin.routes");
 const issueBookRouter = require("./routes/issueBook.routes");
 const allRecordsRouter = require("./routes/allRecords.routes");
+const profileImgRoutes = require("./routes/profile-Images.routes");
 
 // db config
 const db = require("./config/config");
@@ -24,7 +25,7 @@ app.use(
   cors({
     // origin: ["http://localhost:5000"],
     origin: "*",
-    method: ["GET", "POST", "PUT", "DELETE"],
+    method: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
 );
@@ -61,3 +62,5 @@ app.use("/students", studentRoutes);
 app.use("/students/login", studentLoginRoutes);
 app.use("/issueBook", issueBookRouter);
 app.use("/allRecords", allRecordsRouter);
+app.use("/profile-upload", profileImgRoutes);
+app.use("/Images", express.static("./public/Images"));

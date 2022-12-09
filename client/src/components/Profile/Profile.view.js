@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./ProfileView.scss";
 import axios from "axios";
 
+//  REDUX
+// import { useDispatch } from "react-redux";
+// import { updatename } from "../../Redux/User/userSlice";
+
 export const ProfileView = ({ adminInfoFunction }) => {
   const [adminInfo, setAdminInfo] = useState("");
   const adminInfoPass = [];

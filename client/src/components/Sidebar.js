@@ -15,7 +15,12 @@ import { BsPeople } from "react-icons/bs";
 import { BiLogOut } from "react-icons/bi";
 import { GiBlackBook } from "react-icons/gi";
 
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+
 const Sidebar = (props) => {
+  const name = useSelector((state) => state.userAcc.name);
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -29,7 +34,7 @@ const Sidebar = (props) => {
           <div className="image-box">
             <img src={Profile} alt="" />
           </div>
-          <h3>ASTRID</h3>
+          <h3>{name}</h3>
         </div>
         <div className="sidebar">
           <ul>

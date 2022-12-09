@@ -50,6 +50,8 @@ const AdminForm = ({ AdminStudentloginForm }) => {
 
     axios(dataConfig)
       .then((result) => {
+        console.log(result.data.result.name);
+        console.log(result);
         Toast.fire({
           icon: "success",
           title: result.data.message,

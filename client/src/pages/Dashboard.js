@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 // import "../Css/Dashboard.css";
 import "../Styles/Dashboard.scss";
 import Charts from "../components/Chart";
@@ -10,8 +10,43 @@ import { IoIosPeople } from "react-icons/io";
 import { MdPeopleAlt } from "react-icons/md";
 import { GoIssueOpened } from "react-icons/go";
 import { ImBooks } from "react-icons/im";
+import axios from "axios";
+
+//  REDUX
+import { useDispatch } from "react-redux";
+import { updatename } from "../Redux/User/userSlice";
 
 const Dashboard = () => {
+  const [userProfile, setuserProfile] = useState({
+    file: [],
+    filepreview: null,
+  });
+
+  // USER ACC NAME DISPATCH
+  const dispatch = useDispatch();
+
+  const dataConfig = {
+    url: "http://localhost:5000/admin",
+    method: "get",
+  };
+
+  useEffect(() => {
+    let userCleanUp = true;
+    axios(dataConfig)
+      .then((result) => {
+        result.data.map((props) => {
+          dispatch(updatename({ name: props.name }));
+
+          return true;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return () => (userCleanUp = false);
+  }, []);
+
   return (
     <>
       <Navbar />

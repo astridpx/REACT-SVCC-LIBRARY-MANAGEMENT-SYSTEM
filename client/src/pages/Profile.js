@@ -8,6 +8,7 @@ import ProImg from "../assets/profile.png";
 // import "../Css/ProfileView.css";
 import "../components/Profile/ProfileView.scss";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 // navtab
 import { ProfileView } from "../components/Profile/Profile.view";
@@ -17,8 +18,8 @@ const Profile = () => {
   // const [adminInfo, setAdminInfo] = useState("");
   const [adminName, setAdminName] = useState("");
   const [adminRole, setAdminRole] = useState("");
-  // const [adminProfile, setAdminProfile] = useState("");
   const [adminIdUpdate, setAdminIdUpdate] = useState();
+  const [userProfileImg, setuserProfileImg] = useState("");
 
   //  show / hide profile details
   const [view, setView] = useState(true);
@@ -32,6 +33,19 @@ const Profile = () => {
   const [upload, setUpload] = useState(false);
   const uploadRef = useRef();
 
+  // SWEET ALERT
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "center",
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener("mouseenter", Swal.stopTimer);
+      toast.addEventListener("mouseleave", Swal.resumeTimer);
+    },
+  });
+
   // GETTING THE DATA FROM CHILD COMPONENT (PROFILE VIEW)
   const adminInfoFunction = (adminInfoPass) => {
     adminInfoPass.map((props) => {
@@ -42,6 +56,43 @@ const Profile = () => {
       return true;
     });
   };
+
+  // HANDLE UPLOADING PROFILE PICTURE
+  const handleProfilePictureUpdate = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("image", e.target.files[0]);
+
+    const url = "http://localhost:5000/profile-upload/1";
+
+    axios
+      .put(url, formData)
+      .then((result) => {
+        Toast.fire({
+          icon: "success",
+          title: result.data.message,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        Toast.fire({
+          icon: "error",
+          title: err.response.data.message,
+        });
+      });
+  };
+
+  useEffect(() => {
+    const url = "http://localhost:5000/profile-upload/admin/profile/1";
+
+    axios.get(url).then((result) => {
+      console.log(result);
+
+      setuserProfileImg(result.data[0].image);
+    });
+  }, []);
 
   return (
     <>
@@ -90,7 +141,10 @@ const Profile = () => {
             <main>
               <div className="profile-box-wrapper">
                 {/* PRFILE IMAGE UPLOAD */}
-                <form className="image-box">
+                <form
+                  className="image-box"
+                  onClick={() => console.log(userProfileImg)}
+                >
                   <div
                     className="img-wrap"
                     onMouseEnter={() => setUpload(!upload)}
@@ -105,11 +159,14 @@ const Profile = () => {
                         type="file"
                         name=""
                         accept="image/*"
+                        multiple={false}
                         id="uploadPic"
                         ref={uploadRef}
+                        // value={adminProfile}
+                        onChange={(e) => handleProfilePictureUpdate(e)}
                       />
                     </span>
-                    <img src={ProImg} alt="profileimg" />
+                    <img src={userProfileImg} alt="profileimg" />
                   </div>
                   <div className="profile-info">
                     <h3>
