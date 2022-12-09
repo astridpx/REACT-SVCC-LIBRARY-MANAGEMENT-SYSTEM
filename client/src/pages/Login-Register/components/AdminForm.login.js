@@ -7,9 +7,6 @@ import { FiUser } from "react-icons/fi";
 import { AiOutlineLock } from "react-icons/ai";
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 
-import { useSelector, useDispatch } from "react-redux";
-import { update } from "../../../Redux/SignUpForm-Redux/signUpSlice";
-
 const AdminForm = ({ AdminStudentloginForm }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,7 +17,6 @@ const AdminForm = ({ AdminStudentloginForm }) => {
   const ShowHidePassword = () => {
     setShowHide(!showHide);
   };
-  const dispatch = useDispatch();
 
   // SWEET ALERT
   const Toast = Swal.mixin({
@@ -41,17 +37,15 @@ const AdminForm = ({ AdminStudentloginForm }) => {
     // axios.defaults.withCredentials = true;
     const dataConfig = {
       url: "http://localhost:5000/admin/adminLogin",
-      method: "post",
+      method: "POST",
       data: {
         email,
         password,
       },
     };
-
+    console.log(dataConfig);
     axios(dataConfig)
       .then((result) => {
-        console.log(result.data.result.name);
-        console.log(result);
         Toast.fire({
           icon: "success",
           title: result.data.message,

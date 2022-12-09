@@ -14,12 +14,15 @@ import Swal from "sweetalert2";
 import { ProfileView } from "../components/Profile/Profile.view";
 import { ProfileEdit } from "../components/Profile/Prodile.edit";
 
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+
 const Profile = () => {
   // const [adminInfo, setAdminInfo] = useState("");
   const [adminName, setAdminName] = useState("");
   const [adminRole, setAdminRole] = useState("");
   const [adminIdUpdate, setAdminIdUpdate] = useState();
-  const [userProfileImg, setuserProfileImg] = useState("");
+  const profileImg = useSelector((state) => state.userAcc.profileImg);
 
   //  show / hide profile details
   const [view, setView] = useState(true);
@@ -84,16 +87,6 @@ const Profile = () => {
       });
   };
 
-  useEffect(() => {
-    const url = "http://localhost:5000/profile-upload/admin/profile/1";
-
-    axios.get(url).then((result) => {
-      console.log(result);
-
-      setuserProfileImg(result.data[0].image);
-    });
-  }, []);
-
   return (
     <>
       <Navbar />
@@ -141,10 +134,7 @@ const Profile = () => {
             <main>
               <div className="profile-box-wrapper">
                 {/* PRFILE IMAGE UPLOAD */}
-                <form
-                  className="image-box"
-                  onClick={() => console.log(userProfileImg)}
-                >
+                <form className="image-box">
                   <div
                     className="img-wrap"
                     onMouseEnter={() => setUpload(!upload)}
@@ -166,7 +156,7 @@ const Profile = () => {
                         onChange={(e) => handleProfilePictureUpdate(e)}
                       />
                     </span>
-                    <img src={userProfileImg} alt="profileimg" />
+                    <img src={profileImg} alt="profileimg" />
                   </div>
                   <div className="profile-info">
                     <h3>

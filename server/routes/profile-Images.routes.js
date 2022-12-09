@@ -34,29 +34,11 @@ router.get("/", (req, res) => {
   res.sendFile(__dirname + "/index.html");
 });
 
-// GETB PROFILE PICTURE OF ADMIN
-router.get("/admin/profile/:id", (req, res) => {
-  const id = req.params.id;
-
-  db.query(
-    "SELECT image FROM admin WHERE ADMIN_ID = ?",
-    [id],
-    (err, result) => {
-      if (result) {
-        res.json(result);
-      } else {
-        res.status(409).send({ message: "SOMETHING WENT WRONG " + err });
-      }
-    }
-  );
-});
-
 // ADMIN PROFILE IMAGE UPLOAD
 router.put("/:id", upload.single("image"), (req, res) => {
   const image = "http://localhost:5000/Images/" + req.file.filename;
   const id = req.params.id;
 
-  console.log(image);
   if (!/\.(jpg|png|jpeg)/i.test(req.file.originalname)) {
     res
       .status(409)
@@ -81,7 +63,6 @@ router.put("/student/:id", upload.single("image"), (req, res) => {
   const image = req.file.filename;
   const id = req.params.id;
 
-  console.log(image);
   if (!/\.(jpg|png|jpeg)/i.test(req.file.originalname)) {
     res
       .status(409)

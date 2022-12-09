@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 // import "../Css/Sidebar.css";
 import "../Styles/Sidebar.scss";
 import Profile from "../assets/profile.png";
+import axios from "axios";
 
 // icons
 import { BiHomeAlt } from "react-icons/bi";
@@ -17,14 +18,49 @@ import { GiBlackBook } from "react-icons/gi";
 
 // REDUX
 import { useSelector, useDispatch } from "react-redux";
+import {
+  accIdValue,
+  profileImg_src,
+  updatename,
+} from "../Redux/User/userSlice";
 
 const Sidebar = (props) => {
+  // REDUX VALUES
   const name = useSelector((state) => state.userAcc.name);
+  const profileImg = useSelector((state) => state.userAcc.profileImg);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
+
+  // USER ACC NAME DISPATCH
+  const dispatch = useDispatch();
+
+  const dataConfig = {
+    url: "http://localhost:5000/admin",
+    method: "get",
+  };
+
+  useEffect(() => {
+    let userCleanUp = true;
+
+    axios(dataConfig)
+      .then((result) => {
+        result.data.map((props) => {
+          dispatch(accIdValue({ accId: props.ADMIN_ID }));
+          dispatch(updatename({ name: props.name }));
+          dispatch(profileImg_src({ profileImg: props.image }));
+
+          return true;
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    return () => (userCleanUp = false);
+  }, []);
 
   return (
     <>
@@ -32,7 +68,7 @@ const Sidebar = (props) => {
         <div className="line"></div>
         <div className="profile-box">
           <div className="image-box">
-            <img src={Profile} alt="" />
+            <img src={profileImg} alt="" />
           </div>
           <h3>{name}</h3>
         </div>

@@ -16,6 +16,9 @@ import { BiBookAlt } from "react-icons/bi";
 import { BiLogOut } from "react-icons/bi";
 import { GiBlackBook } from "react-icons/gi";
 
+// REDUX
+import { useSelector } from "react-redux";
+
 const Navbar = () => {
   const [show, setShow] = useState("none");
 
@@ -23,6 +26,9 @@ const Navbar = () => {
     localStorage.removeItem("token");
     window.location.reload();
   };
+
+  const profileImg = useSelector((state) => state.userAcc.profileImg);
+  const name = useSelector((state) => state.userAcc.name);
 
   return (
     <>
@@ -41,8 +47,8 @@ const Navbar = () => {
           <div className="navlinks" style={{ display: show }}>
             {/* <AiOutlineClose id="menu-close" /> */}
             <div className="profile">
-              <img src={Logo} id="proile" />
-              <h3>Admin: Astrid</h3>
+              <img src={profileImg} alt="" />
+              <h3>{name}</h3>
             </div>
             <ul>
               <li>
