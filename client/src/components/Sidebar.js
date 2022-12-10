@@ -22,6 +22,7 @@ import {
   accIdValue,
   profileImg_src,
   updatename,
+  updateEmail,
 } from "../Redux/User/userSlice";
 
 const Sidebar = (props) => {
@@ -51,7 +52,7 @@ const Sidebar = (props) => {
           dispatch(accIdValue({ accId: props.ADMIN_ID }));
           dispatch(updatename({ name: props.name }));
           dispatch(profileImg_src({ profileImg: props.image }));
-
+          dispatch(updateEmail({ email: props.email }));
           return true;
         });
       })

@@ -7,10 +7,15 @@ import axios from "axios";
 import Swal from "sweetalert2";
 // import DateTime from "../components/Clock";
 
+import { useDispatch } from "react-redux";
+import { issueReducer } from "../Redux/Dashboard-details/DashboardSlice";
+
 const Records = () => {
   const [recordList, setRecordList] = useState("");
   const [email, setEmail] = useState("john@gmail.com");
   // const [issueId, setIssueId] = useState("");
+
+  const dispatch = useDispatch();
 
   function isDateBeforeToday(date) {
     const checkDate = new Date(date);
@@ -35,6 +40,7 @@ const Records = () => {
     const url = "http://localhost:5000/allRecords/";
 
     axios.get(url).then((result) => {
+      dispatch(issueReducer({ issueNo: result.data.length }));
       const resultRecord = result.data.map((props) => {
         return (
           <tr

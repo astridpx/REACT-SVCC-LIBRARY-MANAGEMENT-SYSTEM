@@ -8,7 +8,7 @@ const DateTime = () => {
     return function cleanup() {
       clearInterval(timer);
     };
-  });
+  }, []);
 
   return (
     <div>

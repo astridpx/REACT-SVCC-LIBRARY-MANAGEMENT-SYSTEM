@@ -38,6 +38,8 @@
       .card-icon {
         width: 35%;
         height: 100%;
+        max-height: 100px;
+        border-radius: 7px 0 0 7px;
         @include flexCenter(center);
       }
       .icon-member {
@@ -57,6 +59,7 @@
         font-size: 6vh;
       }
       .card-title {
+        height: 100px;
         width: 70%;
         padding: 0 1rem;
         background-color: bisque;
@@ -117,6 +120,37 @@
         .react-calendar__tile--active {
           color: white;
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 812px) {
+  .dashboard-section {
+    .card-wrapper {
+      height: 30vh;
+      grid-template-columns: repeat(2, 1fr);
+      place-content: center;
+      gap: 1rem;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    }
+
+    section {
+      flex-direction: column;
+      height: max-content;
+
+      .chart-wrapper {
+        background-color: #cdf0ea;
+        padding: 1rem 0;
+        width: 100%;
+        margin: 0 auto;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+          rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+      }
+
+      .right-box {
+        display: none;
       }
     }
   }

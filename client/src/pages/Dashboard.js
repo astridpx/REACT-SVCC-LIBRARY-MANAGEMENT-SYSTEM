@@ -12,7 +12,16 @@ import { GoIssueOpened } from "react-icons/go";
 import { ImBooks } from "react-icons/im";
 import axios from "axios";
 
+import { useSelector, useDispatch } from "react-redux";
+
 const Dashboard = () => {
+  const memberCount = useSelector((state) => state.dashboardDetails.membersNo);
+  const applicantCount = useSelector(
+    (state) => state.dashboardDetails.applicantsNo
+  );
+  const issueCount = useSelector((state) => state.dashboardDetails.issueNo);
+  const booksCount = useSelector((state) => state.dashboardDetails.booksNo);
+
   return (
     <>
       <Navbar />
@@ -30,7 +39,7 @@ const Dashboard = () => {
               </div>
               <div className="card-title ">
                 <p>Members</p>
-                <h3>20</h3>
+                <h3>{memberCount}</h3>
               </div>
             </div>
             <div className="card">
@@ -39,7 +48,7 @@ const Dashboard = () => {
               </div>
               <div className="card-title">
                 <p>Applicants</p>
-                <h3>20</h3>
+                <h3>{applicantCount}</h3>
               </div>
             </div>
             <div className="card">
@@ -48,7 +57,7 @@ const Dashboard = () => {
               </div>
               <div className="card-title">
                 <p>Issued</p>
-                <h3>20</h3>
+                <h3>{issueCount}</h3>
               </div>
             </div>
             <div className="card">
@@ -57,7 +66,7 @@ const Dashboard = () => {
               </div>
               <div className="card-title">
                 <p>Books</p>
-                <h3>20</h3>
+                <h3>{booksCount} </h3>
               </div>
             </div>
           </div>

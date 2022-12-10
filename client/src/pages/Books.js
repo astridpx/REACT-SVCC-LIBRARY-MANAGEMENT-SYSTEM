@@ -10,6 +10,9 @@ import { EditBookForm } from "../components/EditBook/EditBook";
 import Swal from "sweetalert2";
 import axios from "axios";
 
+import { useDispatch } from "react-redux";
+import { booksReducer } from "../Redux/Dashboard-details/DashboardSlice";
+
 const Books = () => {
   const [booklist, setBooklist] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -17,6 +20,8 @@ const Books = () => {
   // const [btnClose, setBtnClose] = useState(true);
   const [showEditForm, setEditForm] = useState(false);
   const [editData, setEditData] = useState([]);
+
+  const dispatch = useDispatch();
 
   // SHOW / HIDE ADD FORM COMPONENT
   const handleForm = () => {
@@ -53,6 +58,7 @@ const Books = () => {
     axios
       .get(url)
       .then((result) => {
+        dispatch(booksReducer({ booksNo: result.data.length }));
         const Books = result.data.map((props) => {
           return (
             <tr key={props.BOOK_ID}>

@@ -5,12 +5,16 @@ export const userAccSlice = createSlice({
   initialState: {
     accId: null,
     name: null,
+    email: null,
     profileImg: null,
   },
 
   reducers: {
     updatename: (state, action) => {
       state.name = action.payload.name;
+    },
+    updateEmail: (state, action) => {
+      state.email = action.payload.email;
     },
     profileImg_src: (state, action) => {
       state.profileImg = action.payload.profileImg;
@@ -24,5 +28,6 @@ export const userAccSlice = createSlice({
 // export const { update } = SignUpFormSlice.actions;
 // export default SignUpFormSlice.reducer;
 
-export const { updatename, profileImg_src, accIdValue } = userAccSlice.actions;
+export const { updatename, profileImg_src, accIdValue, updateEmail } =
+  userAccSlice.actions;
 export default userAccSlice.reducer;
