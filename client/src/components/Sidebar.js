@@ -24,6 +24,12 @@ import {
   updatename,
   updateEmail,
 } from "../Redux/User/userSlice";
+import {
+  applicantReducer,
+  booksReducer,
+  issueReducer,
+  memberReducer,
+} from "../Redux/Dashboard-details/DashboardSlice";
 
 const Sidebar = (props) => {
   // REDUX VALUES
@@ -42,6 +48,10 @@ const Sidebar = (props) => {
     url: "http://localhost:5000/admin",
     method: "get",
   };
+  const url_member = "http://localhost:5000/students/";
+  const url_applicants = "http://localhost:5000/students/applicants";
+  const url_issue = "http://localhost:5000/allRecords/";
+  const url_books = "http://localhost:5000/books";
 
   useEffect(() => {
     let userCleanUp = true;
@@ -55,6 +65,46 @@ const Sidebar = (props) => {
           dispatch(updateEmail({ email: props.email }));
           return true;
         });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // MEMBER COUNT
+    axios
+      .get(url_member)
+      .then((result) => {
+        dispatch(memberReducer({ membersNo: result.data.length }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // APPLICANTS COUNT
+    axios
+      .get(url_applicants)
+      .then((result) => {
+        dispatch(applicantReducer({ applicantsNo: result.data.length }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // ISSUE COUNTS
+    axios
+      .get(url_issue)
+      .then((result) => {
+        dispatch(issueReducer({ issueNo: result.data.length }));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    // BOOKS COUNTS
+    axios
+      .get(url_books)
+      .then((result) => {
+        dispatch(booksReducer({ booksNo: result.data.length }));
       })
       .catch((err) => {
         console.log(err);

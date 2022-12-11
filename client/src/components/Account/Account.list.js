@@ -4,13 +4,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 // REDUX
-import { useSelector, useDispatch } from "react-redux";
-import { memberReducer } from "../../Redux/Dashboard-details/DashboardSlice";
+import { useSelector } from "react-redux";
 
 export const AccountList = () => {
   const email = useSelector((state) => state.userAcc.email);
   const [accountList, setAccountList] = useState("");
-  const dispatch = useDispatch();
 
   const Toast = Swal.mixin({
     toast: true,
@@ -29,8 +27,6 @@ export const AccountList = () => {
     const url = "http://localhost:5000/students/";
 
     axios.get(url).then((result) => {
-      console.log(result.data.length);
-      dispatch(memberReducer({ membersNo: result.data.length }));
       const acclist = result.data.map((props) => {
         return (
           <tr key={props.STUD_ID}>

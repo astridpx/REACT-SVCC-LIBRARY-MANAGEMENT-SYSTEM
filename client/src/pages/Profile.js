@@ -76,7 +76,7 @@ const Profile = () => {
         Toast.fire({
           icon: "success",
           title: result.data.message,
-        });
+        }).then(() => window.location.reload(false));
       })
       .catch((err) => {
         console.log(err);

@@ -2,12 +2,9 @@ import React, { useEffect, useState } from "react";
 import Profile from "../../assets/profile.png";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useDispatch } from "react-redux";
-import { applicantReducer } from "../../Redux/Dashboard-details/DashboardSlice";
 
 export const AccountApplicants = () => {
   const [applicantList, setApplicantList] = useState("");
-  const dispatch = useDispatch();
 
   // SWEET ALERT
   const Toast = Swal.mixin({
@@ -27,8 +24,6 @@ export const AccountApplicants = () => {
     const url = "http://localhost:5000/students/applicants";
 
     axios.get(url).then((result) => {
-      dispatch(applicantReducer({ applicantsNo: result.data.length }));
-
       const applicants = result.data.map((props) => {
         return (
           <tr key={props.STUD_ID}>

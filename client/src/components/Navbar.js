@@ -36,7 +36,8 @@ const Navbar = () => {
         <nav>
           <div className="logo">
             <img src={Logo} alt="Logo" />
-            <h2>St. Vincent College </h2>
+            {/* <h2>St. Vincent College </h2> */}
+            <h2> College of Cabuyao</h2>
           </div>
           <MdMenu id="menu" onClick={() => setShow("block")} />
           <div
