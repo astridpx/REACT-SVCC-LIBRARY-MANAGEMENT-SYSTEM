@@ -60,8 +60,9 @@ const Studentform = ({ AdminStudentloginForm }) => {
             dispatch(update({ signUpShowValue: false }));
             localStorage.setItem("token", result.data.token);
             localStorage.setItem("id", result.data.id);
+            localStorage.setItem("role", result.data.role);
           })
-          .then(() => navigate("/student/home"));
+          .then(() => navigate("/"));
       })
       .catch((error) => {
         Toast.fire({

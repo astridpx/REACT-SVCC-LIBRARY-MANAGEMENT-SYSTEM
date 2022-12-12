@@ -32,6 +32,7 @@ const StudentSidebar = (props) => {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("id");
+    localStorage.removeItem("role");
     window.location.reload();
   };
 
@@ -75,7 +76,7 @@ const StudentSidebar = (props) => {
           <ul>
             <li>
               <BiHomeAlt className="icons" id={props.home} />
-              <Link to="/student/home" id={props.home}>
+              <Link to="/" id={props.home}>
                 Home
               </Link>
             </li>

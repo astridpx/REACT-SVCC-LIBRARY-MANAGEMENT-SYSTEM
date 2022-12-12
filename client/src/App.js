@@ -34,8 +34,7 @@ import Login from "./pages/Login-Register/Login";
 import { useSelector } from "react-redux";
 
 function App() {
-  const role = useSelector((state) => state.userAcc.role);
-  const navigate = useNavigate();
+  const role = localStorage.getItem("role");
 
   return (
     <>
@@ -44,8 +43,14 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRoutes />}>
+            <Route
+              path="/"
+              exact
+              element={role === "student" ? <HomeStudent /> : <Dashboard />}
+            />
+
             {/* STUDENT */}
-            <Route path="/student/home" exact element={<HomeStudent />} />
+            {/* <Route path="/student/home" exact element={<HomeStudent />} /> */}
             <Route path="/student/issue" exact element={<IssueStudent />} />
             <Route path="/student/profile" exact element={<StudentProfile />} />
             <Route
@@ -61,7 +66,7 @@ function App() {
             />
 
             {/* ADMIN */}
-            <Route path="/" exact element={<Dashboard />} />
+            {/* <Route path="/" exact element={<Dashboard />} /> */}
             <Route path="/Issue-Books" exact element={<IssueBooks />} />
             <Route path="/Return-Books" exact element={<ReturnBook />} />
             <Route path="/Books" exact element={<Book />} />
