@@ -1,0 +1,284 @@
+@import "../../Styles/variable";
+
+.student-container {
+  width: 100%;
+  height: 100%;
+  @include flexCenter(space-between);
+  align-items: unset;
+
+  .table-container {
+    width: 100%;
+    min-width: $min-width;
+    // height: $table-fix-height;
+    @include flexCenter(center);
+    // margin-top: 1rem;
+  }
+
+  .table-wrapper {
+    // overflow-y: scroll;
+    width: 98%;
+    height: 100%;
+    // height: 85vh;
+    margin: 0 auto;
+    // border: 1px solid black;
+    border-radius: 10px;
+    background-color: #ffffff9f;
+
+    header {
+      height: $table-head-height;
+      width: 100%;
+      position: sticky;
+      background-color: $head-clr;
+      padding-top: 0.8rem;
+      border-radius: 10px 10px 0 0;
+      h2 {
+        text-align: center;
+      }
+
+      .search-box {
+        // height: 50%;
+        width: 100%;
+        @include flexCenter(space-between);
+
+        .search-input {
+          @include flexCenter(unset);
+
+          input {
+            margin-right: 2px;
+            margin-left: 10px;
+            // padding-left: 5px;
+            padding: 5px;
+            font-weight: 400;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid $main-bg-clr;
+            // height: $main-height;
+            width: 11rem;
+            cursor: pointer;
+            &:focus {
+              outline: 0;
+            }
+          }
+          .btn-search {
+            // height: $main-height;
+            padding: 5px 1rem;
+            border: 1px solid $main-bg-clr;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+          }
+        }
+      }
+
+      // date filter
+      .filter-date {
+        // width: 65%;
+        // @include flexCenter(center);
+        display: none;
+        width: 100%;
+        input {
+          border: 1px solid $main-bg-clr;
+          outline: 0;
+          height: $main-height;
+          cursor: pointer;
+
+          &:first-of-type {
+            margin: 0 1rem 0 5px;
+          }
+          &:last-of-type {
+            margin: 0 2px;
+          }
+        }
+        label {
+          font-weight: 500;
+        }
+        button {
+          height: $main-height;
+          padding: 0 1rem;
+          border: 1px solid $main-bg-clr;
+          border-radius: 5px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+      }
+    } // end of header
+
+    // table
+    .stud-table-section {
+      max-height: $table-wrapper-height;
+      width: 100%;
+      overflow-y: auto;
+      thead th {
+        position: sticky;
+        top: 0;
+        background-color: $main-bg-clr;
+        color: $main-txt-clr;
+        padding: 5px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      tr {
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        // &:nth-child(even) {
+        //   background-color: #eeee;
+        // }
+      }
+
+      tbody .not-return {
+        background-color: #ffd0df;
+        // background-color: #ffe551;
+      }
+      td {
+        border-bottom: 1px solid #000;
+        // border: 1px solid #000;
+        text-align: center;
+        font-weight: 400;
+        font-size: 14px;
+        padding: 7px 9px;
+        word-wrap: break-word;
+        max-height: 4rem;
+        // height: 4rem;
+        min-width: $td-width;
+      }
+      th {
+        border-top: transparent;
+      }
+
+      .action {
+        // width: 100%;
+        // display: flex;
+        // flex-direction: column;
+        // justify-content: center;
+        // align-items: center;
+        // padding: 2px;
+
+        #edit,
+        #delete {
+          padding: 3px 5px;
+          border: 2px solid transparent;
+          outline: none;
+          border-radius: 5px;
+          font-weight: 500;
+          cursor: pointer;
+          color: $btn-txt-clr;
+          margin: 1px;
+        }
+        #edit {
+          width: 54px;
+          margin-bottom: 2px;
+          background-color: $edit-clr;
+          border: 1px solid $edit-clr2;
+        }
+        #delete {
+          background-color: $delete-clr;
+          border: 1px solid $delete-clr2;
+        }
+      }
+    }
+  }
+}
+//  media height
+@media only screen and (max-height: 650px) {
+  .record-container {
+    .table-wrapper {
+      header {
+        .filter-date {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+      }
+      .stud-table-section {
+        height: 22rem;
+      }
+    }
+  }
+}
+/* SWEET ALERT CUSTPM STYLE */
+.swal2-popup {
+  background-color: $main-bg-clr;
+  color: $main-txt-clr;
+}
+.swal2-icon {
+  border-color: #fff;
+  color: #fff;
+}
+.swal2-icon.swal2-warning {
+  background-color: $delete-clr;
+  color: #fff;
+  border: 1px solid;
+  border-color: #fff;
+}
+.swal2-title {
+  font-size: unset;
+  color: $main-txt-clr;
+}
+.swal2-input {
+  outline: none;
+  border: 1px solid #fff;
+  // border-bottom: 1px solid #fff;
+  &:focus {
+    outline: none;
+    border: 1px solid #fff;
+    box-shadow: none;
+    // border-bottom: 1px solid #fff;
+  }
+}
+.swal2-styled.swal2-confirm {
+  background-color: #2b77c0;
+}
+.swal2-styled.swal2-cancel {
+  background-color: #d33;
+}
+.swal2-popup.swal2-toast {
+  background-color: $main-bg-clr;
+  color: $main-txt-clr;
+
+  // .swal2-actions {
+  //   justify-content: center;
+  // }
+  // @media only screen and (min-height: 800px) {
+}
+//   .record-container {
+//     .table-wrapper {
+//       .table-section {
+//         height: 70vh;
+//       }
+//     }
+//   }
+// }
+
+// Media for witdh
+@media only screen and (max-width: $media-screen) {
+  .student-container {
+    .table-wrapper {
+      width: 100%;
+      // margin-top: 1rem;
+      header {
+        height: 9rem;
+        position: unset;
+        .search-box {
+          display: block;
+          .search-input {
+            // float: left;
+            margin-bottom: 1rem;
+          }
+        }
+        // date filter
+        .filter-date {
+          // justify-content: center;
+          .date-from,
+          .date-to {
+            display: block;
+            margin-bottom: 10px;
+          }
+        }
+      }
+      .stud-table-section {
+        height: 27rem;
+      }
+    }
+  }
+}

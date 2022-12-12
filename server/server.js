@@ -11,6 +11,7 @@ const studentLoginRoutes = require("./routes/studentLogin.routes");
 const issueBookRouter = require("./routes/issueBook.routes");
 const allRecordsRouter = require("./routes/allRecords.routes");
 const profileImgRoutes = require("./routes/profile-Images.routes");
+const studentRecord = require("./routes/student.routes");
 
 // db config
 const db = require("./config/config");
@@ -60,6 +61,7 @@ app.use("/admin", adminRouter);
 app.use("/books", bookRoutes);
 app.use("/students", studentRoutes);
 app.use("/students/login", studentLoginRoutes);
+app.use("/students", studentRecord);
 app.use("/issueBook", issueBookRouter);
 app.use("/allRecords", allRecordsRouter);
 app.use("/profile-upload", profileImgRoutes);

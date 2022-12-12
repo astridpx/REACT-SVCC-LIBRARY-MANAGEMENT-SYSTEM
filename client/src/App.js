@@ -1,6 +1,12 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import PrivateRoutes from "./utils/PrivateRoutes";
 
@@ -14,10 +20,23 @@ import AllRecord from "./pages/Records";
 import Account from "./pages/Accounts";
 import Profile from "./pages/Profile";
 
+// STUDENT
+import HomeStudent from "./STUDENT/Home";
+import IssueStudent from "./STUDENT/IssueBook.student";
+import ReturnBookStudent from "./STUDENT/ReturnBook.student";
+import BooklistStudent from "./STUDENT/Booklist.student";
+import StudentProfile from "./STUDENT/Myaccount.student";
+import StudentRecords from "./STUDENT/Student.records";
+
 // LOGIN REGISTER
 import Login from "./pages/Login-Register/Login";
 
+import { useSelector } from "react-redux";
+
 function App() {
+  const role = useSelector((state) => state.userAcc.role);
+  const navigate = useNavigate();
+
   return (
     <>
       {/* basename={window.location.pathname || ""} */}
@@ -25,6 +44,23 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PrivateRoutes />}>
+            {/* STUDENT */}
+            <Route path="/student/home" exact element={<HomeStudent />} />
+            <Route path="/student/issue" exact element={<IssueStudent />} />
+            <Route path="/student/profile" exact element={<StudentProfile />} />
+            <Route
+              path="/student/return"
+              exact
+              element={<ReturnBookStudent />}
+            />
+            <Route path="/Student-records" exact element={<StudentRecords />} />
+            <Route
+              path="/student/booklist"
+              exact
+              element={<BooklistStudent />}
+            />
+
+            {/* ADMIN */}
             <Route path="/" exact element={<Dashboard />} />
             <Route path="/Issue-Books" exact element={<IssueBooks />} />
             <Route path="/Return-Books" exact element={<ReturnBook />} />

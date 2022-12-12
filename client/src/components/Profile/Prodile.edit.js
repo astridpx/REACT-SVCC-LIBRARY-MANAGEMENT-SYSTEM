@@ -22,7 +22,7 @@ export const ProfileEdit = (props) => {
 
   const handleAccId = (e) => {
     const formatedAccID = FormatStudID(e.target.value);
-    setAccId(formatedAccID);
+    setAccId("AY" + formatedAccID);
   };
 
   // SWEET ALERT
@@ -81,7 +81,7 @@ export const ProfileEdit = (props) => {
             ref={inputRef}
             placeholder="Enter stud Id"
             required
-            value={"AY" + accId}
+            value={accId}
             onChange={(e) => handleAccId(e)}
           />
         </div>

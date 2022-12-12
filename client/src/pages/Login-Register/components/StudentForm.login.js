@@ -55,7 +55,13 @@ const Studentform = ({ AdminStudentloginForm }) => {
         Toast.fire({
           icon: "success",
           title: result.data.message,
-        }).then(() => dispatch(update({ signUpShowValue: false })));
+        })
+          .then(() => {
+            dispatch(update({ signUpShowValue: false }));
+            localStorage.setItem("token", result.data.token);
+            localStorage.setItem("id", result.data.id);
+          })
+          .then(() => navigate("/student/home"));
       })
       .catch((error) => {
         Toast.fire({

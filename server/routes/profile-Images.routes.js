@@ -60,7 +60,7 @@ router.put("/:id", upload.single("image"), (req, res) => {
 
 // STUDENT PROFILE IMAGE UPLOAD
 router.put("/student/:id", upload.single("image"), (req, res) => {
-  const image = req.file.filename;
+  const image = "http://localhost:5000/Images/" + req.file.filename;
   const id = req.params.id;
 
   if (!/\.(jpg|png|jpeg)/i.test(req.file.originalname)) {

@@ -26,9 +26,11 @@ router.post("/", async (req, res) => {
                   expiresIn: "2d",
                 }
               );
+              const role = result[0].role;
+              const id = result[0].STUD_ID;
               res
                 .status(200)
-                .send({ message: "LOGIN SUCCESS.", token, result });
+                .send({ message: "LOGIN SUCCESS.", token, role, id });
             } else {
               res.status(409).send({
                 message:
