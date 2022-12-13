@@ -46,11 +46,12 @@ function App() {
             <Route
               path="/"
               exact
-              element={role === "student" ? <HomeStudent /> : <Dashboard />}
+              element={role === "student" ? <StudentRecords /> : <Dashboard />}
             />
 
             {/* STUDENT */}
             {/* <Route path="/student/home" exact element={<HomeStudent />} /> */}
+            <Route path="/Student-records" exact element={<StudentRecords />} />
             <Route path="/student/issue" exact element={<IssueStudent />} />
             <Route path="/student/profile" exact element={<StudentProfile />} />
             <Route
@@ -58,7 +59,6 @@ function App() {
               exact
               element={<ReturnBookStudent />}
             />
-            <Route path="/Student-records" exact element={<StudentRecords />} />
             <Route
               path="/student/booklist"
               exact
@@ -66,7 +66,7 @@ function App() {
             />
 
             {/* ADMIN */}
-            {/* <Route path="/" exact element={<Dashboard />} /> */}
+            <Route path="/Dashboard" exact element={<Dashboard />} />
             <Route path="/Issue-Books" exact element={<IssueBooks />} />
             <Route path="/Return-Books" exact element={<ReturnBook />} />
             <Route path="/Books" exact element={<Book />} />

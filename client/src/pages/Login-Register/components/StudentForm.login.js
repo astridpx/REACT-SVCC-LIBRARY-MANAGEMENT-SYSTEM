@@ -55,6 +55,10 @@ const Studentform = ({ AdminStudentloginForm }) => {
         Toast.fire({
           icon: "success",
           title: result.data.message,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.resumeTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
         })
           .then(() => {
             dispatch(update({ signUpShowValue: false }));
@@ -62,7 +66,7 @@ const Studentform = ({ AdminStudentloginForm }) => {
             localStorage.setItem("id", result.data.id);
             localStorage.setItem("role", result.data.role);
           })
-          .then(() => navigate("/"));
+          .then(() => navigate("/Student-records"));
       })
       .catch((error) => {
         Toast.fire({

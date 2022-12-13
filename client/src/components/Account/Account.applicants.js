@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Profile from "../../assets/profile.png";
+import Profile from "../../assets/user1.png";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -28,7 +28,11 @@ export const AccountApplicants = () => {
         return (
           <tr key={props.STUD_ID}>
             <td className="name-box">
-              <img src={Profile} alt="" /> {props.name}
+              <img
+                src={props.image.length > 0 ? props.image : Profile}
+                alt=""
+              />{" "}
+              {props.name}
             </td>
             <td>{props.stud_no}</td>
             <td>{props.section}</td>

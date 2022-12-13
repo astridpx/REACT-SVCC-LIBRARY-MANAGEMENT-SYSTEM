@@ -128,7 +128,7 @@ const Sidebar = (props) => {
           <ul>
             <li>
               <BiHomeAlt className="icons" id={props.dashboard} />
-              <Link to="/" id={props.dashboard}>
+              <Link to="/Dashboard" id={props.dashboard}>
                 Dashboard
               </Link>
             </li>

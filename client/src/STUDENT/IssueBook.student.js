@@ -8,6 +8,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import QRCode from "react-qr-code";
 
+import { useSelector } from "react-redux";
+
 const IssueBook = () => {
   const [isbn, setISBN] = useState("");
   const issueRef = useRef();
@@ -17,6 +19,11 @@ const IssueBook = () => {
   const [email, setEmail] = useState("");
   const [issueDate, setIssueDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+
+  // REDUX
+  const nameval = useSelector((state) => state.userAcc.name);
+  const emailval = useSelector((state) => state.userAcc.email);
+  const studIdVal = useSelector((state) => state.userAcc.accNo);
 
   const handleISBN = (e) => {
     const formatedISBN = FormatISBN(e.target.value);
@@ -51,9 +58,9 @@ const IssueBook = () => {
     data: {
       isbn,
       title,
-      studId,
-      name,
-      email,
+      studId: studIdVal,
+      name: nameval,
+      email: emailval,
       issueDate,
       returnDate,
     },
@@ -119,7 +126,7 @@ const IssueBook = () => {
                 placeholder="Enter stud id"
                 required
                 autoComplete="off"
-                value={"AY" + studId}
+                value={studIdVal}
                 onChange={(e) => handleStudId(e)}
               />
             </div>
@@ -131,7 +138,7 @@ const IssueBook = () => {
                 placeholder="Enter name"
                 required
                 autoComplete="off"
-                value={name}
+                value={nameval}
                 onChange={(e) => setName(e.target.value)}
               />
             </div>
@@ -143,7 +150,7 @@ const IssueBook = () => {
                 placeholder="Enter email"
                 required
                 autoComplete="off"
-                value={email}
+                value={emailval}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>

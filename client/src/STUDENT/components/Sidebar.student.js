@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../Styles/Sidebar.scss";
-import Profile from "../../assets/profile.png";
+import Profile from "../../assets/Adminprofile.png";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -68,16 +68,22 @@ const StudentSidebar = (props) => {
         <div className="line"></div>
         <div className="profile-box">
           <div className="image-box">
-            <img src={profileImg} alt="" />
+            <img src={profileImg ? profileImg : Profile} alt="" />
           </div>
           <h3>{name}</h3>
         </div>
         <div className="sidebar">
           <ul>
-            <li>
+            {/* <li>
               <BiHomeAlt className="icons" id={props.home} />
-              <Link to="/" id={props.home}>
+              <Link to="/student/home" id={props.home}>
                 Home
+              </Link>
+            </li> */}
+            <li>
+              <HiOutlineDocumentReport className="icons" id={props.records} />
+              <Link to="/Student-records" id={props.records}>
+                My Records
               </Link>
             </li>
             <li>
@@ -96,12 +102,6 @@ const StudentSidebar = (props) => {
               <BiBookAlt className="icons" id={props.availBook} />
               <Link to="/student/booklist" id={props.availBook}>
                 Booklist
-              </Link>
-            </li>
-            <li>
-              <HiOutlineDocumentReport className="icons" id={props.records} />
-              <Link to="/Student-records" id={props.records}>
-                My Records
               </Link>
             </li>
 

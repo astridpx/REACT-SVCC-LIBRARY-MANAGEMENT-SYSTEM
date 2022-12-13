@@ -3,24 +3,19 @@ import { Link } from "react-router-dom";
 import Sidebar from "./components/Sidebar.student";
 import Navbar from "../components/Navbar";
 import "../Styles/Profile.scss";
-import ProImg from "../assets/profile.png";
+import ProImg from "../assets/Adminprofile.png";
 import "../components/Profile/ProfileView.scss";
 import axios from "axios";
 import Swal from "sweetalert2";
 
 // navtab
 import { ProfileView } from "../STUDENT/components/Profile-Student/Student.profile";
-import { ProfileEdit } from "../components/Profile/Prodile.edit";
+import { ProfileEdit } from "../STUDENT/components/Profile-Student/StudentEdit.profile";
 
 // REDUX
 import { useSelector, useDispatch } from "react-redux";
 
 const Profile = () => {
-  // const [adminInfo, setAdminInfo] = useState("");
-  const [adminName, setAdminName] = useState("");
-  const [adminRole, setAdminRole] = useState("");
-  const [adminIdUpdate, setAdminIdUpdate] = useState();
-
   // ACCOUNT DETAILS
   const profileImg = useSelector((state) => state.userAcc.profileImg);
   const accId = useSelector((state) => state.userAcc.accId);
@@ -150,7 +145,10 @@ const Profile = () => {
                         onChange={(e) => handleProfilePictureUpdate(e)}
                       />
                     </span>
-                    <img src={profileImg} alt="profileimg" />
+                    <img
+                      src={profileImg ? profileImg : ProImg}
+                      alt="profileimg"
+                    />
                   </div>
                   <div className="profile-info">
                     <h3>{role}</h3>
@@ -161,11 +159,7 @@ const Profile = () => {
               </div>
               {/* detailes */}
               <div className="profile-details">
-                {edit ? (
-                  <ProfileEdit adminId={adminIdUpdate} />
-                ) : (
-                  <ProfileView />
-                )}
+                {edit ? <ProfileEdit /> : <ProfileView />}
               </div>
             </main>
           </section>
