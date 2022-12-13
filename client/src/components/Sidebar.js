@@ -62,7 +62,11 @@ const Sidebar = (props) => {
         result.data.map((props) => {
           dispatch(accIdValue({ accId: props.ADMIN_ID }));
           dispatch(updatename({ name: props.name }));
-          dispatch(profileImg_src({ profileImg: props.image }));
+          dispatch(
+            profileImg_src({
+              profileImg: "http://localhost:5000/Images/" + props.image,
+            })
+          );
           dispatch(updateEmail({ email: props.email }));
           return true;
         });

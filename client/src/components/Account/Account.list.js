@@ -33,14 +33,18 @@ export const AccountList = () => {
           <tr key={props.STUD_ID}>
             <td className="name-box">
               <img
-                src={props.image.length > 0 ? props.image : Profile}
+                src={
+                  props.image.length > 0
+                    ? "http://localhost:5000/Images/" + props.image
+                    : Profile
+                }
                 alt=""
               />
               {props.name}
             </td>
             <td>{props.stud_no}</td>
             <td>{props.section}</td>
-            <td>{props.section}</td>
+            <td>{props.course}</td>
             <td className="email-box">{props.email}</td>
             <td className="action">
               {/* <button id="edit">Edit</button> */}

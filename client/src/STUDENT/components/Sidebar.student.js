@@ -49,7 +49,11 @@ const StudentSidebar = (props) => {
         dispatch(accIdValue({ accId: localStorage.getItem("id") }));
         dispatch(accountNo({ accNo: result.data[0].stud_no }));
         dispatch(updatename({ name: result.data[0].name }));
-        dispatch(profileImg_src({ profileImg: result.data[0].image }));
+        dispatch(
+          profileImg_src({
+            profileImg: "http://localhost:5000/Images/" + result.data[0].image,
+          })
+        );
         dispatch(updateEmail({ email: result.data[0].email }));
         dispatch(sectionValue({ section: result.data[0].section }));
         dispatch(courseValue({ course: result.data[0].course }));

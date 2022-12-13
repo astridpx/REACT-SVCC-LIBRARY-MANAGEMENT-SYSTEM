@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const db = require("../config/config");
+const fs = require("fs");
 
 // PROFILE IMAGES
 const multer = require("multer");
@@ -30,13 +31,13 @@ const upload = multer({
   fileFilter: isImage,
 });
 
-router.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
-});
+// router.get("/", (req, res) => {
+//   res.sendFile(__dirname + "/index.html");
+// });
 
 // ADMIN PROFILE IMAGE UPLOAD
 router.put("/:id", upload.single("image"), (req, res) => {
-  const image = "http://localhost:5000/Images/" + req.file.filename;
+  const image = req.file.filename;
   const id = req.params.id;
 
   if (!/\.(jpg|png|jpeg)/i.test(req.file.originalname)) {
@@ -44,6 +45,20 @@ router.put("/:id", upload.single("image"), (req, res) => {
       .status(409)
       .send({ message: "Only image files (jpg, jpeg, png) are allowed!" });
   } else {
+    // DELETE PREVIOUS IMAGE
+    db.query(
+      "SELECT image FROM admin WHERE ADMIN_ID = ? ",
+      [id],
+      (err, result) => {
+        if (result) {
+          fs.unlinkSync(`./public/Images/${result[0].image}`);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+
+    // UPLOADING/SAVING IMAGES
     const sqlInsert = "UPDATE admin SET `image` = ? WHERE ADMIN_ID = ?";
     db.query(sqlInsert, [image, id], (err, result) => {
       if (err) {
@@ -60,7 +75,7 @@ router.put("/:id", upload.single("image"), (req, res) => {
 
 // STUDENT PROFILE IMAGE UPLOAD
 router.put("/student/:id", upload.single("image"), (req, res) => {
-  const image = "http://localhost:5000/Images/" + req.file.filename;
+  const image = req.file.filename;
   const id = req.params.id;
 
   if (!/\.(jpg|png|jpeg)/i.test(req.file.originalname)) {
@@ -68,6 +83,24 @@ router.put("/student/:id", upload.single("image"), (req, res) => {
       .status(409)
       .send({ message: "Only image files (jpg, jpeg, png) are allowed!" });
   } else {
+    // DELETE PREVIOUS IMAGE
+    db.query(
+      "SELECT image FROM student_acc WHERE STUD_ID = ? ",
+      [id],
+      (err, result) => {
+        try {
+          if (result) {
+            fs.unlinkSync(`./public/Images/${result[0].image}`);
+          }
+        } catch (error) {
+          console.log(error);
+          // throw error;
+        }
+        console.log(result);
+      }
+    );
+
+    // UPLOADING SAVING IMAGE
     const sqlInsert = "UPDATE student_acc SET `image` = ? WHERE STUD_ID = ?";
     db.query(sqlInsert, [image, id], (err, result) => {
       if (err) {
