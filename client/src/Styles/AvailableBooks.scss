@@ -5,6 +5,16 @@
   width: 100%;
   @include flexCenter(space-between);
   align-items: unset;
+  position: relative;
+}
+.bookQr {
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background-color: #000;
+  z-index: 99;
+  @include flexCenter(center);
+  // transform: translateY(-100%);
 }
 
 // btn float
@@ -131,30 +141,29 @@
 
     .action {
       // width: 100%;
-      // display: flex;
-      // flex-direction: column;
-      // justify-content: center;
-      // align-items: center;
-      // padding: 2px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      column-gap: 2px;
+      #view {
+        padding: 4px 8px;
+        border-radius: 5px;
+        font-weight: 500;
+        cursor: pointer;
+        background-color: #26a1ed;
+        border: 1px solid #26a1ed;
+        // border: none;
+      }
 
-      #edit,
-      #delete {
-        padding: 5px 8px;
+      #download {
+        background-color: $delete-clr;
+        border: 1px solid $delete-clr2;
+        padding: 4px 8px;
         border-radius: 5px;
         font-weight: 500;
         cursor: pointer;
         color: $btn-txt-clr;
-        margin: 2px;
-      }
-      #edit {
-        width: 54px;
-        margin-bottom: 2px;
-        background-color: $edit-clr;
-        border: 1px solid $edit-clr2;
-      }
-      #delete {
-        background-color: $delete-clr;
-        border: 1px solid $delete-clr2;
       }
     }
   }

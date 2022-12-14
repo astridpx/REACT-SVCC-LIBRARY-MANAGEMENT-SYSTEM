@@ -1,23 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
 // import "../Css/AvailableBooks.css";
-import "../Styles/AvailableBooks.scss";
+import "../../Styles/AvailableBooks.scss";
 import axios from "axios";
-import { saveAs } from "file-saver";
 
 const AvailableBooks = () => {
   const [availBooklist, setAvailBookList] = useState("");
   const [isbn, setIsbn] = useState("");
   const [showQr, setShowQr] = useState("none");
-  const qrImage = `https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=${isbn}`;
-
-  const DownloadQr = (value) => {
-    saveAs(
-      `https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=${value}`,
-      "SVCC-Book-QR" + new Date() + ".jpg"
-    );
-  };
 
   useEffect(() => {
     let availCleanup = true;
@@ -43,7 +34,7 @@ const AvailableBooks = () => {
                 >
                   View
                 </button>
-                <button id="download" onClick={() => DownloadQr(props.isbn)}>
+                <button id="download" onClick={() => alert("Download")}>
                   Download
                 </button>
               </td>
@@ -67,12 +58,15 @@ const AvailableBooks = () => {
         onClick={() => setShowQr("none")}
       >
         {/* <button>Close</button> */}
-        <img src={qrImage} alt="" />
+        <img
+          src={`https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=${isbn}`}
+          alt=""
+        />
       </div>
       <Navbar />
       <div className="books-container">
         <div className="nav-side">
-          <Sidebar availBook="active" />
+          <Sidebar booklist="active" />
         </div>
         <div className="book-section">
           <section>
