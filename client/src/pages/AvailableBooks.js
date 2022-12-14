@@ -4,9 +4,20 @@ import Navbar from "../components/Navbar";
 // import "../Css/AvailableBooks.css";
 import "../Styles/AvailableBooks.scss";
 import axios from "axios";
+import { saveAs } from "file-saver";
 
 const AvailableBooks = () => {
   const [availBooklist, setAvailBookList] = useState("");
+  const [isbn, setIsbn] = useState("");
+  const [showQr, setShowQr] = useState("none");
+  const qrImage = `https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=${isbn}`;
+
+  const DownloadQr = (value) => {
+    saveAs(
+      `https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=${value}`,
+      "SVCC-Book-QR" + new Date() + ".jpg"
+    );
+  };
 
   useEffect(() => {
     let availCleanup = true;
@@ -22,6 +33,20 @@ const AvailableBooks = () => {
               <td>{props.title}</td>
               <td className="author-box">{props.author}</td>
               <td>{props.published_date}</td>
+              <td className="action">
+                <button
+                  id="view"
+                  onClick={() => {
+                    setIsbn(props.isbn);
+                    setShowQr("flex");
+                  }}
+                >
+                  View
+                </button>
+                <button id="download" onClick={() => DownloadQr(props.isbn)}>
+                  Download
+                </button>
+              </td>
             </tr>
           );
         });
@@ -36,6 +61,14 @@ const AvailableBooks = () => {
 
   return (
     <>
+      <div
+        className="bookQr"
+        style={{ display: showQr }}
+        onClick={() => setShowQr("none")}
+      >
+        {/* <button>Close</button> */}
+        <img src={qrImage} alt="" />
+      </div>
       <Navbar />
       <div className="books-container">
         <div className="nav-side">
@@ -66,6 +99,7 @@ const AvailableBooks = () => {
                     <th>Book Title</th>
                     <th>Author</th>
                     <th>Date Published</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
