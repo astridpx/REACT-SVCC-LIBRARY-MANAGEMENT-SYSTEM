@@ -95,13 +95,50 @@
         p {
           position: absolute;
         }
-        #qr-img {
-          //   display: none;
-          height: 90%;
-          // width: 100%;
-          border-radius: 10px;
-          border: 1px solid #fff;
-          background-color: #f3f3f3;
+        section {
+          div {
+            position: unset !important;
+          }
+        }
+
+        .boxScanner {
+          height: 125px;
+          width: 125px;
+          // background-color: aqua;
+          z-index: 4;
+          background: linear-gradient(to right, red 4px, transparent 4px) 0 0,
+            linear-gradient(to right, red 4px, transparent 4px) 0 100%,
+            linear-gradient(to left, red 4px, transparent 4px) 100% 0,
+            linear-gradient(to left, red 4px, transparent 4px) 100% 100%,
+            linear-gradient(to bottom, red 4px, transparent 4px) 0 0,
+            linear-gradient(to bottom, red 4px, transparent 4px) 100% 0,
+            linear-gradient(to top, red 4px, transparent 4px) 0 100%,
+            linear-gradient(to top, red 4px, transparent 4px) 100% 100%;
+          background-repeat: no-repeat;
+          background-size: 20px 20px;
+        }
+      }
+      .bottom-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        column-gap: 10px;
+
+        button {
+          padding: 5px 17px;
+          border: 1px solid transparent;
+          border-radius: 5px;
+          font-weight: 500;
+          cursor: pointer;
+
+          &:first-of-type {
+            background-color: #26a1ed;
+          }
+          &:nth-of-type(2) {
+            background-color: $delete-clr;
+            color: $main-txt-clr;
+          }
         }
       }
     }

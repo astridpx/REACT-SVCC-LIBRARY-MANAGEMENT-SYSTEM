@@ -60,5 +60,18 @@ router.post("/issue", async (req, res) => {
   });
 });
 
+// ISSUE BOOK SCAN
+router.get("/issue/getBook/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+
+  db.query("SELECT * FROM booklist WHERE isbn=?", [isbn], (err, result) => {
+    if (result.length > 0) {
+      res.json(result);
+    } else {
+      res.status(409).send({ message: "ISBN NOT FOUND IN THE BOOKLIST." });
+    }
+  });
+});
+
 module.exports = router;
 // SELECT * FROM issue_book ib LEFT JOIN booklist bk ON bk.BOOK_ID = ib.BOOK_ID LEFT JOIN student_acc sa ON sa.STUD_ID = ib.STUD_ID;

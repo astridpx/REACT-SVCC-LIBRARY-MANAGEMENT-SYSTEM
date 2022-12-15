@@ -7,6 +7,7 @@ import { FormatStudID } from "../helpers/studID.format";
 import axios from "axios";
 import Swal from "sweetalert2";
 import QRCode from "react-qr-code";
+import { QrReader } from "react-qr-reader";
 
 import { useSelector } from "react-redux";
 
@@ -19,6 +20,7 @@ const IssueBook = () => {
   const [email, setEmail] = useState("");
   const [issueDate, setIssueDate] = useState("");
   const [returnDate, setReturnDate] = useState("");
+  const [scan, setScan] = useState(false);
 
   // REDUX
   const nameval = useSelector((state) => state.userAcc.name);
@@ -83,6 +85,37 @@ const IssueBook = () => {
         // .then(() => window.location.reload(false));
       });
   };
+
+  const Scanner = (
+    <>
+      <QrReader
+        onResult={(result, error) => {
+          if (result) {
+            const url = `http://localhost:5000/issueBook/issue/getBook/${result}`;
+            axios
+              .get(url)
+              .then(async (results) => {
+                await results.data.map((props) => {
+                  setISBN(props.isbn);
+                  setTitle(props.title);
+
+                  return true;
+                });
+              })
+              .catch((err) => {
+                Toast.fire({
+                  icon: "error",
+                  title: err.response.data.message,
+                });
+              });
+          }
+        }}
+        style={{ position: "unset", top: "0" }}
+      />
+      <div className="boxScanner"></div>
+    </>
+  );
+
   return (
     <>
       <Navbar />
@@ -101,8 +134,9 @@ const IssueBook = () => {
                 placeholder="Enter isbn"
                 required
                 autoComplete="off"
-                onChange={handleISBN}
-                value={isbn}
+                // onChange={handleISBN}
+                // value={isbn}
+                value={scan ? isbn : "000-0000-000"}
                 maxLength="12"
               />
             </div>
@@ -114,8 +148,9 @@ const IssueBook = () => {
                 placeholder="Enter title"
                 required
                 autoComplete="off"
-                value={title}
-                onChange={(e) => setTitle(e.target.value.toUpperCase())}
+                // value={title}
+                value={scan ? title : "Book"}
+                // onChange={(e) => setTitle(e.target.value.toUpperCase())}
               />
             </div>
             <div className="issue-field">
@@ -178,19 +213,16 @@ const IssueBook = () => {
           <div className="qr-box">
             <div className="upper-box">
               <div className="img-box">
-                {/* <img src={Qr} id="qr-img" />
-                <p>QR-Code Display Here</p> */}
-                {isbn && (
-                  <QRCode
-                    // title="SVCC"
-                    value={isbn}
-                    id="qr-img"
-                    fgColor={"#000000"}
-                    bgColor={"#fff"}
-                    // viewBox={`0 0 256 256`}
-                  />
-                )}
+                {scan ? Scanner : <p>Camera is Off</p>}
               </div>
+            </div>
+            <div className="bottom-box">
+              <button type="button" onClick={() => setScan(true)}>
+                Scan
+              </button>
+              <button onClick={() => window.location.reload(false)}>
+                Stop
+              </button>
             </div>
           </div>
         </div>
