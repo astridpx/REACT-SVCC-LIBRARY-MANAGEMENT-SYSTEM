@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "apexcharts": "^3.36.3",
     "axios": "^1.2.1",
+    "file-saver": "^2.0.5",
     "fork-react-qr-reader": "^3.0.1-beta-1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
