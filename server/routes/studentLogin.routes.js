@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
                 { id: result[0].id },
                 process.env.JWTPRIVATEKEY,
                 {
-                  expiresIn: "2d",
+                  expiresIn: "10h",
                 }
               );
               const role = result[0].role;
